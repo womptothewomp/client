@@ -2317,27 +2317,12 @@ LagbackChecker = Player.NewButton({
 		local lagbackcon
 		if callback then
 			lagbackcon = PrimaryPart:GetPropertyChangedSignal("CFrame"):Connect(function()
-				if Speed.Enabled then
-					Speed.ToggleButton(false)
-				end
 				if Fly.Enabled then
 					Fly.ToggleButton(false)
 				end
 				if HighJump.Enabled then
 					HighJump.ToggleButton(false)
 				end
-				if AntiHit.Enabled then
-					AntiHit.ToggleButton(false)
-				end
-				
-				task.delay(3.5, function()
-					if not Speed.Enabled then
-						Speed.ToggleButton(true)
-					end
-					if not AntiHit.Enabled then
-						AntiHit.ToggleButton(true)
-					end
-				end)
 			end)
 		end
 	end,
