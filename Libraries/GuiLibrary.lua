@@ -1,7 +1,6 @@
 if shared.AeolusLoaded == true then return end
 
 local gameId = game.PlaceId
-
 shared.AeolusLoaded = true
 
 local config = {
@@ -500,6 +499,8 @@ function shared.GuiLibrary:CreateWindowInstance(tab)
 	gradient.Parent = bottomRound
 	gradient2.Parent = bottomFlat
 end
+
+writefile("Aeolus/games/"..gameId)
 
 shared.GuiLibrary:CreateWindowInstance({Name = "Combat"})
 shared.GuiLibrary:CreateWindowInstance({Name = "Movement"})
