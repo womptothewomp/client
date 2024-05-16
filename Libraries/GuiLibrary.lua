@@ -22,7 +22,7 @@ local function loadConfig()
 end
 
 if not isfile("Aeolus/configs") then
-	makefolder("Aeolus/configs")
+	makefolder("Aeolus")
 	saveConfig()
 end
 
