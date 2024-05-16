@@ -10,18 +10,18 @@ local config = {
 
 local function saveConfig()
 	local encrypt = game:GetService("HttpService"):JSONEncode(config)
-	if isfile("Aeolus/configs/"..gameId) then
-		delfile("Aeolus/configs/"..gameId)
+	if isfile("Aeolus/config.json") then
+		delfile("Aeolus/config.json")
 	end
-	writefile("Aeolus/configs/"..gameId,encrypt)
+	writefile("Aeolus/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Aeolus/configs/"..gameId))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Aeolus/config.json"))
 	config = decrypt
 end
 
-if not isfile("Aeolus/configs") then
+if not isfile("Aeolus/config.json") then
 	makefolder("Aeolus")
 	saveConfig()
 end
