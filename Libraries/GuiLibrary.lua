@@ -1,5 +1,3 @@
-if shared.AeolusLoaded == true then return end
-
 local gameId = game.PlaceId
 shared.AeolusLoaded = true
 
@@ -35,7 +33,6 @@ local TextService = game:GetService("TextService")
 local UserInputService = game:GetService("UserInputService")
 
 local lplr = Players.LocalPlayer
-shared.GuiLibrary = {}
 
 local themes = {
 	CandyCane = {
@@ -499,8 +496,6 @@ function shared.GuiLibrary:CreateWindowInstance(tab)
 	gradient.Parent = bottomRound
 	gradient2.Parent = bottomFlat
 end
-
-writefile("Aeolus/games/"..gameId)
 
 shared.GuiLibrary:CreateWindowInstance({Name = "Combat"})
 shared.GuiLibrary:CreateWindowInstance({Name = "Movement"})
