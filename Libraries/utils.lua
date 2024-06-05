@@ -5,6 +5,7 @@ UserInputService = game:GetService("UserInputService")
 LocalPlayer = Players.LocalPlayer
 Character = LocalPlayer.Character
 Humanoid = Character.Humanoid
+ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 utils.onGround = function()
 	return Humanoid.FloorMaterial ~= Enum.Material.Air
@@ -16,7 +17,7 @@ utils.isMoving = function()
 	return UserInputService:IsKeyDown("W") or UserInputService:IsKeyDown("A") or UserInputService:IsKeyDown("S") or UserInputService:IsKeyDown("D")
 end
 utils.newChat = function(Message)
-  DefaultChatSystemChatEvents:WaitForChild("SayMessageRequest"):FireServer(Message, "All")
+  ReplicatedStorage.DefaultChatSystemChatEvents:WaitForChild("SayMessageRequest"):FireServer(Message, "All")
 end
 utils.NewRaycast = function(Start, Direction)
   local p = RaycastParams.new()
