@@ -92,7 +92,7 @@ library.Array.BackgroundTransparency = 0.1
 library.Array.TextTransparency = 0
 library.Array.Rounded = false
 
-library.Color = Color3.fromRGB(255, 105, 195)
+library.Color = Color3.fromRGB(188, 106, 255)
 library.KeyBind = Enum.KeyCode.RightShift
 
 library.Modules = {}
@@ -789,9 +789,6 @@ Killaura = Combat.NewButton({
 
 						if TargetHudMode.Option == "Basic" then
 							pcall(function()
-								TweenService:Create(hp,TweenInfo.new(1),{
-									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
-								}):Play()
 								targetInfo.Size = UDim2.fromScale(.12, .05)
 								targetInfo.BackgroundColor3 = Color3.fromRGB(25,25,25)
 								targetInfo.BorderSizePixel = 0
@@ -801,10 +798,14 @@ Killaura = Combat.NewButton({
 								targetInfo.Text = "  "..nearest.DisplayName.. " - IsWinning: ".. tostring(isWinning())
 								targetInfo.TextXAlignment = Enum.TextXAlignment.Left
 
-								hp = Instance.new("Frame", targetInfo)
+								local hp = Instance.new("Frame", targetInfo)
 								hp.Position = UDim2.fromScale(0, .9)
 								hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 								hp.BorderSizePixel = 0
+								
+								TweenService:Create(hp,TweenInfo.new(1),{
+									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
+								}):Play()
 							end)	
 						end
 
@@ -1499,7 +1500,7 @@ local function shoot(bow, pos)
 	local args = {}
 	local shootFormulaStart = pos + Vector3.new(0,2,0)
 	local shootFormulaDirection = Vector3.new(0,-100,0)
-	args = {
+	ProjectileFire:InvokeServer({
 		[1] = bow,
 		[2] = bow.Name,
 		[3] = bow.Name,
@@ -1512,8 +1513,7 @@ local function shoot(bow, pos)
 			["shotId"] = tostring(game:GetService("HttpService"):GenerateGUID(false))
 		},
 		[9] =  workspace:GetServerTimeNow() - 0.045
-	}
-	ProjectileFire:InvokeServer(unpack(args))
+	})
 end
 
 local function getAllBows()
@@ -1526,7 +1526,7 @@ local function getAllBows()
 	return bows
 end
 
-Projectileaura = Combat.NewButton({
+--[[Projectileaura = Combat.NewButton({
 	Name = "Projectileaura",
 	Function = function(callback)
 		if callback then
@@ -1536,13 +1536,13 @@ Projectileaura = Combat.NewButton({
 				local track = Humanoid.Animator:LoadAnimation(swingAnim)
 				repeat
 					local target = getNearestPlayer(9e9)
-					local rangeCheck = getNearestPlayer(22)
+					local rangeCheck = getNearestPlayer(2)
 					local entity = target
 					if target and rangeCheck == nil then
 						local bows = getAllBows()
 						for i,v in pairs(bows) do
 							spoofHand(v.Name)
-							task.wait(.06)
+							task.wait(.05)
 							if v.Name == "fireball" or v.Name == "snowball" and not AllProjectiles.Enabled then
 								continue
 							end
@@ -1559,7 +1559,7 @@ Projectileaura = Combat.NewButton({
 AllProjectiles = Projectileaura.NewToggle({
 	Name = "AllProjectiles",
 	Function = function() end
-})
+})]]
 
 local ConsumeRemote = getRemote("ConsumeItem")
 AutoPot = Player.NewButton({
@@ -1818,10 +1818,10 @@ AntiHit = Combat.NewButton({
 				local nearest = getNearestPlayer(12)
 				if (hurttime <= 50) and nearest then
 					if (AntiHitSafe.Enabled and tick() - lastHit > 0.4) then
-						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -6 + Vector3.new(0,3,0)
+						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -4 + Vector3.new(0,3,0)
 						lastHit = tick()
 					else
-						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -6 + Vector3.new(0,3,0)
+						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -4 + Vector3.new(0,3,0)
 					end
 				end
 				lastHP = Humanoid.Health
@@ -1846,7 +1846,7 @@ AltDetector = Player.NewButton({
 		if callback then
 			AltDetectorcon = game.Players.PlayerAdded:Connect(function(plr)
 				if plr.AccountAge < 16 then
-
+					print(plr.Name .. " is an alt account.")
 				end
 			end)
 		else
@@ -1966,8 +1966,8 @@ LongJump = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			if LongJumpMethod.Option == "Boost" then
-				TweenService:Create(PrimaryPart, TweenInfo.new(0.75), {
-					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 15
+				TweenService:Create(PrimaryPart, TweenInfo.new(2.1), {
+					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
 				}):Play()
 				task.delay(0.75, function()
 					LongJump.ToggleButton(false)
@@ -1981,6 +1981,9 @@ LongJump = Motion.NewButton({
 			end
 		else
 			workspace.Gravity = 196.2
+			task.delay(0.1, function()
+				PrimaryPart.Velocity = Vector3.zero
+			end)
 		end
 	end,
 })
@@ -2131,13 +2134,32 @@ TxtpackMode = TexturePack.NewPicker({
 })
 
 local chatMessages = {
-	"When life gives you lemons, get Polaris",
-	"I heard using Polaris lets you win every HVH",
-	"Get Polaris today",
-	"Polaris takes 5 seconds to use and it lets you win every match!",
-	"Polaris > Protosense",
-	"Learn some real fighting skills with Polaris today",
-	"I'm not cheating, just good at bridging.",
+	Polaris = {
+		"When life gives you lemons, get Polaris",
+		"I heard using Polaris lets you win every HVH",
+		"Get Polaris today",
+		"Polaris takes 5 seconds to use and it lets you win every match!",
+		"Polaris > Protosense",
+		"Learn some real fighting skills with Polaris today",
+		"I'm not cheating, just good at bridging.",	
+		"Join .gg/WmSzPSDU 4 Polaris."
+	},
+	UWU = {
+		"Nya~~ Get Polaris today :3",
+		"Please get Polaris.. UwU",
+		"I NEED Polaris inside me.",
+		"I love getting hit by Polaris from behind >-<",
+		--"Go to .gg/WmSzPSDU to get Polaris..~",
+		"Come get me and maybe you'll get Polaris.. x-x",
+		"Polaris > Protosense~ (its a logger :3)"
+	},
+	TheHood = {
+		"I'm from the hood yo, go get Polaris today.",
+		"Im gonna commit a shoot-by if you don't get Polaris.",
+		"The Hood uses Polaris to win every fight.",
+		"Polaris runs the Hood up in here.",
+		"Making bank using Polaris in the Hood, everyone listens to me."
+	}
 }
 
 Chatspammer = Misc.NewButton({
@@ -2145,10 +2167,15 @@ Chatspammer = Misc.NewButton({
 	Function = function(callback)
 		if callback then
 			repeat
-				local newchat = chatMessages[math.random(1, #chatMessages)]
+				local chatTable = chatMessages[ChatSpammerMode.Option]
+				local newchat = chatTable[math.random(1, #chatTable)]
 				Utilities.newChat(newchat)
 				task.wait(3.5)
 			until not Chatspammer.Enabled
 		end
 	end,
+})
+ChatSpammerMode = Chatspammer.NewPicker({
+	Name = "Mode",
+	Options = {"Polaris", "UWU", "TheHood"}
 })
