@@ -1568,7 +1568,7 @@ local function getAllBows()
 	return bows
 end
 
-Projectileaura = Combat.NewButton({
+--[[Projectileaura = Combat.NewButton({
 	Name = "Projectileaura",
 	Function = function(callback)
 		if callback then
@@ -1626,7 +1626,7 @@ AutoPot = Player.NewButton({
 	end
 })
 
-local sprintController = getController("SprintController")
+--[[local sprintController = getController("SprintController")
 Sprint = Player.NewButton({
 	["Name"] = "Sprint",
 	Function = function(callback)
@@ -1642,7 +1642,7 @@ Sprint = Player.NewButton({
 	end
 })]]
 
-local knockbackHandler = debug.getupvalue(require(game:GetService("ReplicatedStorage").TS.damage["knockback-util"]).KnockbackUtil.calculateKnockbackVelocity, 1)
+--[[local knockbackHandler = debug.getupvalue(require(game:GetService("ReplicatedStorage").TS.damage["knockback-util"]).KnockbackUtil.calculateKnockbackVelocity, 1)
 local oldKb = knockbackHandler.kbUpwardStrength
 Velocity = Combat.NewButton({
 	Name = "Velocity",
