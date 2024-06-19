@@ -2258,7 +2258,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"State", "State2"}
+    Options = {"SemiFloat1", "SemiFloat2"}
 })
 
 local TrollageConnection
