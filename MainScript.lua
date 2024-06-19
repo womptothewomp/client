@@ -4,12 +4,12 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Polaris_user = getgenv().PolarisUser or "Developer"
-local canLoadPolaris = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
+local Venus_user = getgenv().VenusUser or "Developer"
+local canLoadVenus = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
-local PolarisRelease = "2.07"
+local VenusRelease = "1"
 
-if not canLoadPolaris then return end
+if not canLoadVenus then return end
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
@@ -36,17 +36,17 @@ local config = {
 }
 
 local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Polaris/config.json") then delfile("Polaris/config.json"); end
-	writefile("Polaris/config.json",encrypt)
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Venus/config.json") then delfile("Venus/config.json"); end
+	writefile("Venus/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Polaris/config.json"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Venus/config.json"))
 	config = decrypt
 end
 
-if not isfile("Polaris/config.json") then
-	makefolder("Polaris")
+if not isfile("Venus/config.json") then
+	makefolder("Venus")
 	saveConfig()
 end
 
@@ -1062,7 +1062,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "Polaris V2"
+	local text = "Venus V2"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	local label = Instance.new("TextLabel",HUDScreen)
@@ -1085,14 +1085,14 @@ HUDS[1] = function()
 	glow.ZIndex = -10
 end
 HUDS[2] = function()
-	local text = "Polaris"
+	local text = "Venus"
 
 	local frame = Instance.new("TextLabel",HUDScreen)
 	frame.Size = UDim2.fromScale(0.17,0.04)
 	frame.Position = UDim2.fromScale(0.02,0)
 	frame.BorderSizePixel = 0
 	frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
-	frame.Text = text .. " | Build "..PolarisRelease 
+	frame.Text = text .. " | Build "..VenusRelease 
 	frame.TextColor3 = Color3.fromRGB(255,255,255)
 	frame.Size = UDim2.fromScale(0.1,0.035)
 	frame.TextSize = 12
@@ -1111,9 +1111,9 @@ HUD = Visuals.NewButton({
 				task.wait(0.5)
 				HUDScreen = Instance.new("ScreenGui",PlayerGui)
 				HUDScreen.ResetOnSpawn = false
-				if HUDStyle.Option == "Polaris 1" then
+				if HUDStyle.Option == "Venus 1" then
 					HUDS[1]()
-				elseif HUDStyle.Option == "Polaris 2" then
+				elseif HUDStyle.Option == "Venus 2" then
 					HUDS[2]()
 				end
 				library.Array.SortMode = ArraySortStyle.Option
@@ -1145,7 +1145,7 @@ DeeperTransparency = HUD.NewToggle({
 })
 HUDStyle = HUD.NewPicker({
 	Name = "Logo Style",
-	Options = {"Polaris 1", "Polaris 2"}
+	Options = {"Venus 1", "Venus 2"}
 })
 ArrayStyle = HUD.NewPicker({
 	Name = "Array Style",
@@ -1284,7 +1284,7 @@ LevelInfo = Visuals.NewButton({
 			end)
 			task.spawn(function()
 				repeat
-					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Polaris User: "..Polaris_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
+					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Venus User: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
 					task.wait(1)
 				until false
 			end)
@@ -2176,33 +2176,33 @@ TxtpackMode = TexturePack.NewPicker({
 })
 
 local chatMessages = {
-	Polaris = {
-		"When life gives you lemons, get Polaris",
-		"I heard using Polaris lets you win every HVH",
-		"Get Polaris today",
-		"Polaris takes 5 seconds to use and it lets you win every match!",
-		"Polaris > Protosense",
-		"Learn some real fighting skills with Polaris today",
+	Venus = {
+		"When life gives you lemons, get Venus",
+		"I heard using Venus lets you win every HVH",
+		"Get Venus today",
+		"Venus takes 5 seconds to use and it lets you win every match!",
+		"Venus > Protosense",
+		"Learn some real fighting skills with Venus today",
 		"I'm not cheating, just good at bridging.",	
-		"Join .gg/WmSzPSDU 4 Polaris.",
-        "Polaris > Cocosploit",
+		"Join .gg/WmSzPSDU 4 Venus.",
+        "Venus > Cocosploit",
 	},
 	UWU = {
-		"Nya~~ Get Polaris today :3",
-		"Please get Polaris.. UwU",
-		"I NEED Polaris inside me.",
-		"I love getting hit by Polaris from behind >-<",
-		--"Go to .gg/WmSzPSDU to get Polaris..~",
-		--"Come get me and maybe you'll get Polaris.. x-x",
-		"Polaris > Protosense~ (its a logger :3)",
-        "Polaris > Cocosploit~ (the scri- uwu~pt skidded off of polaris :3)"
+		"Nya~~ Get Venus today :3",
+		"Please get Venus.. UwU",
+		"I NEED Venus inside me.",
+		"I love getting hit by Venus from behind >-<",
+		--"Go to .gg/WmSzPSDU to get Venus..~",
+		--"Come get me and maybe you'll get Venus.. x-x",
+		"Venus > Protosense~ (its a logger :3)",
+        "Venus > Cocosploit~ (the scri- uwu~pt skidded off of Venus :3)"
 	},
 	TheHood = {
-		"I'm from the hood yo, go get Polaris today.",
-		"Im gonna commit a shoot-by if you don't get Polaris.",
-		"The Hood uses Polaris to win every fight.",
-		"Polaris runs the Hood up in here.",
-		"Making bank using Polaris in the Hood, everyone listens to me."
+		"I'm from the hood yo, go get Venus today.",
+		"Im gonna commit a shoot-by if you don't get Venus.",
+		"The Hood uses Venus to win every fight.",
+		"Venus runs the Hood up in here.",
+		"Making bank using Venus in the Hood, everyone listens to me."
 	}
 }
 
@@ -2221,7 +2221,7 @@ Chatspammer = Misc.NewButton({
 })
 ChatSpammerMode = Chatspammer.NewPicker({
 	Name = "Mode",
-	Options = {"Polaris", "UWU", "TheHood"}
+	Options = {"Venus", "UWU", "TheHood"}
 })
 
 local DisablerConnection
