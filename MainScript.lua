@@ -1326,6 +1326,11 @@ Speed = Motion.NewButton({
 					speed = Character:GetAttribute("SpeedBoost") and 0.1 or 0.017
 					PrimaryPart.CFrame += (speed * dir)
 				end
+
+				if SpeedMode.Option == "vanila" then
+					speed = 0.05
+					PrimaryPart.CFrame += (speed * dir)
+				end																		
 				task.wait()
 			until not Speed.Enabled
 		else
@@ -1335,7 +1340,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Bedwars"}
+	Options = {"Bedwars", "vanila"}
 })
 
 NoSlowDown = Motion.NewButton({
