@@ -2177,15 +2177,14 @@ TxtpackMode = TexturePack.NewPicker({
 
 local chatMessages = {
 	Polaris = {
-		"When life gives you lemons, get Polaris",
-		"I heard using Polaris lets you win every HVH",
+		"When life gives you lemons, get Venus",
+		"I heard using Venus lets you win every HVH",
 		"Get Polaris today",
-		"Polaris takes 5 seconds to use and it lets you win every match!",
-		"Polaris > Protosense",
-		"Learn some real fighting skills with Polaris today",
+		"Venus takes 5 seconds to use and it lets you win every match!",
+		"Venus > Vxpe",
+		"Learn some real fighting skills with Venus today",
 		"I'm not cheating, just good at bridging.",	
-		"Join .gg/WmSzPSDU 4 Polaris.",
-        "Polaris > Cocosploit",
+        	"Venus > Cocosploit",
 	},
 	UWU = {
 		"Nya~~ Get Polaris today :3",
