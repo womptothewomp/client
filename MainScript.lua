@@ -7,7 +7,7 @@ local utils = {}
 local Polaris_user = getgenv().PolarisUser or "Developer"
 local canLoadPolaris = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
-local PolarisRelease = "2.07 Beta"
+local PolarisRelease = "2.07"
 
 if not canLoadPolaris then return end
 
@@ -91,6 +91,7 @@ library.Array.Bold = false
 library.Array.BackgroundTransparency = 0.1
 library.Array.TextTransparency = 0
 library.Array.Rounded = false
+library.Array.Transparency = false
 
 library.Color = Color3.fromRGB(188, 106, 255)
 library.KeyBind = Enum.KeyCode.RightShift
@@ -160,7 +161,11 @@ local arraylist = {
 			Size = size,
 		}):Play()
 
-		item.BackgroundTransparency = library.Array.Background and 0.3 or 1
+        if library.Array.Transparency then
+		    item.BackgroundTransparency = library.Array.Background and 0.48 or 1
+        else
+            item.BackgroundTransparency = library.Array.Background and 0.3 or 1
+        end
 
 		item.TextTransparency = 0
 
@@ -594,7 +599,7 @@ end
 
 local function getNearestPlayer(range)
 	local nearest
-	local nearestDist = 9e9
+	local nearestDist = math.huge
 	for i,v in pairs(game.Players:GetPlayers()) do
 		pcall(function()
 			if v == LocalPlayer or v.Team == LocalPlayer.Team then return end
@@ -699,7 +704,6 @@ local auraAnimations = {
 		{CFrame = CFrame.new(-0.5, 0.5, -1.1) * CFrame.Angles(math.rad(160), math.rad(45), math.rad(5)), Time = 0.1},
 		{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)), Time = 0.1}
 	},
-
 }
 
 local funAnimations = {
@@ -720,37 +724,46 @@ Killaura = Combat.NewButton({
 	Keybind = Enum.KeyCode.X,
 	Function = function(callback)
 		if callback then
-			auraConnection = RunService.Heartbeat:Connect(function()
-				local nearest = getNearestPlayer(22)
+            auraConnection = RunService.Heartbeat:Connect(function()
+                local nearest = getNearestPlayer(22)
 
-				if nearest ~= nil then
-					local weapon = getBestWeapon()
-					spoofHand(weapon.Name)
+                if nearest ~= nil then
+                    local nearestCharacter = nearest.Character
+                    local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
+                    local selfPrimaryPartPosition = PrimaryPart.Position
+                    local weapon = getBestWeapon()
+                    spoofHand(weapon.Name)
 
-					task.spawn(	function()
-						for i = 1,2 do
-							AuraRemote:FireServer({
-								["chargedAttack"] = {
-									["chargeRatio"] = 0
-								},
-								["entityInstance"] = nearest.Character,
-								["validate"] = {
-									["targetPosition"] = {
-										["value"] = nearest.Character.PrimaryPart.Position
-									},
-									["selfPosition"] = {
-										["value"] = PrimaryPart.Position
-									}
-								},
-								["weapon"] = weapon
-							})
-						end
-					end)
-				end
-			end)
+                    task.spawn(	function()
+                        for i = 1,1 do
+                            AuraRemote:FireServer({
+                                chargedAttack = {
+                                    chargeRatio = 0
+                                },
+                                entityInstance = nearestCharacter,
+                                validate = {
+                                    raycast = {
+                                        cameraPosition = CurrentCamera,
+                                        cursorDirection = CFrame.LookVector
+                                    },
+                                    targetPosition = {
+                                        value = nearestPrimaryPartPosition
+                                    },
+                                    selfPosition = {
+                                        value = selfPrimaryPartPosition
+                                    }
+                                },
+                                weapon = weapon
+                            })
+                        end
+                    end)
+                end
+            end)
+
+
 
 			task.spawn(function()
-				repeat task.wait(0.01)
+				repeat task.wait(0)
 					if getNearestPlayer(22) ~= nil then
 						pcall(function()
 							local animation = auraAnimations[auraAnimation.Option]
@@ -762,7 +775,7 @@ Killaura = Combat.NewButton({
 									for i,v in pairs(animation) do
 										local tween = game.TweenService:Create(viewmodel,TweenInfo.new(v.Timer),{C0 = oldweld * v.CFrame})
 										tween:Play()
-										task.wait(v.Timer - 0.01)
+										task.wait(v.Timer - 0)
 									end
 									animRunning = false
 									game.TweenService:Create(viewmodel,TweenInfo.new(1),{C0 = oldweld}):Play()
@@ -787,27 +800,28 @@ Killaura = Combat.NewButton({
 							targetInfo = Instance.new("TextLabel",ScreenGui)
 						end
 
-						if TargetHudMode.Option == "Basic" then
-							pcall(function()
-								targetInfo.Size = UDim2.fromScale(.12, .05)
-								targetInfo.BackgroundColor3 = Color3.fromRGB(25,25,25)
-								targetInfo.BorderSizePixel = 0
-								targetInfo.AnchorPoint = Vector2.new(0.5,0.5)
-								targetInfo.Position = UDim2.fromScale(0.6,0.5)
-								targetInfo.TextColor3 = Color3.fromRGB(255,255,255)
-								targetInfo.Text = "  "..nearest.DisplayName.. " - IsWinning: ".. tostring(isWinning())
-								targetInfo.TextXAlignment = Enum.TextXAlignment.Left
+                        if TargetHudMode.Option == "Basic" then
+                            pcall(function()
+                                targetInfo.Size = UDim2.fromScale(0.12, 0.05)
+                                targetInfo.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+                                targetInfo.BorderSizePixel = 0
+                                targetInfo.AnchorPoint = Vector2.new(0.5, 0.5)
+                                targetInfo.Position = UDim2.fromScale(0.6, 0.5)
+                                targetInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                targetInfo.Text = "  " .. nearest.DisplayName .. " - IsWinning: " .. tostring(isWinning())
+                                targetInfo.TextXAlignment = Enum.TextXAlignment.Left
 
-								local hp = Instance.new("Frame", targetInfo)
-								hp.Position = UDim2.fromScale(0, .9)
-								hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-								hp.BorderSizePixel = 0
-								
-								TweenService:Create(hp,TweenInfo.new(1),{
-									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
-								}):Play()
-							end)	
-						end
+                                local hp = Instance.new("Frame", targetInfo)
+                                hp.Position = UDim2.fromScale(0, 0.9)
+                                hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                                hp.BorderSizePixel = 0
+
+                                local healthPercentage = nearest.Character.Humanoid.Health / nearest.Character.Humanoid.MaxHealth
+                                TweenService:Create(hpBar, TweenInfo.new(0.2), {
+                                    Size = UDim2.fromScale(healthPercentage, 0.1)
+                                }):Play()
+                            end)
+                        end
 
 						if TargetHudMode.Option == "Basic2" then
 							pcall(function()
@@ -970,19 +984,24 @@ ImageESPStyle = ImageESP.NewPicker({
 local infFlyPart
 InfiniteFly = Motion.NewButton({
 	Name = "InfiniteFly",
+    Keybind = Enum.KeyCode.H,
 	Function = function(callback)
 		if callback then
 			infFlyPart = Instance.new("Part",workspace)
 			infFlyPart.Anchored = true
-			infFlyPart.CanCollide = false
+			infFlyPart.CanCollide = true
 			infFlyPart.CFrame = PrimaryPart.CFrame
 			infFlyPart.Size = Vector3.new(.5 ,.5, .5)
-			infFlyPart.Transparency = 1
-			PrimaryPart.CFrame += Vector3.new(0,10000,0)
+            if RootPartShow.Enabled then
+                infFlyPart.Transparency = 0
+            elseif not RootPartShow.Enabled then
+			    infFlyPart.Transparency = 1
+            end
+			PrimaryPart.CFrame += Vector3.new(0,1000000,0)
 			CurrentCamera.CameraSubject = infFlyPart
 			repeat task.wait()
 				if PrimaryPart.Position.Y < infFlyPart.Position.Y then
-					PrimaryPart.CFrame += Vector3.new(0,10000,0)
+					PrimaryPart.CFrame += Vector3.new(0,1000000,0)
 				end
 
 				if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
@@ -1009,6 +1028,10 @@ InfiniteFly = Motion.NewButton({
 			CurrentCamera.CameraSubject = Character
 		end
 	end,
+})
+RootPartShow = InfiniteFly.NewToggle({
+	Name = "ShowRoot",
+	Function = function() end
 })
 
 local ViewmodelConnection
@@ -1095,7 +1118,12 @@ HUD = Visuals.NewButton({
 					HUDS[2]()
 				end
 				library.Array.SortMode = ArraySortStyle.Option
-				library.Array.BackgroundTransparency = 0.3
+                if library.Array.Transparency then
+				    library.Array.BackgroundTransparency = 0.48
+                else
+                    library.Array.BackgroundTransparency = 0.3
+                end
+                
 				library.Array.TextTransparency = 0
 				refreshArray()
 			end)
@@ -1105,6 +1133,16 @@ HUD = Visuals.NewButton({
 			end)
 		end
 	end,
+})
+DeeperTransparency = HUD.NewToggle({
+	Name = "DeeperTransparency",
+	Function = function(v)
+		library.Array.Transparency = v
+		for i = 1, 2 do
+			refreshArray()
+			task.wait()
+		end
+	end
 })
 HUDStyle = HUD.NewPicker({
 	Name = "Logo Style",
@@ -1176,6 +1214,7 @@ ArrayRounded = HUD.NewToggle({
 		end
 	end
 })
+
 local flycon
 Fly = Motion.NewButton({
 	Name = "Fly",
@@ -1187,10 +1226,10 @@ Fly = Motion.NewButton({
 				PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
 
 				if UserInputService:IsKeyDown("Space") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, 44, velo.Z)
+					PrimaryPart.Velocity = Vector3.new(velo.X, 80, velo.Z)
 				end
 				if UserInputService:IsKeyDown("LeftShift") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, -44, velo.Z)
+					PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
 				end
 			end)
 		else
@@ -1441,7 +1480,7 @@ DamageBoost = Motion.NewButton({
 			repeat
 
 				if (hurttime <= 50) then
-					PrimaryPart.CFrame += Humanoid.MoveDirection * 0.33
+					PrimaryPart.CFrame += Humanoid.MoveDirection * 0.26
 				end
 
 				lastHP = Humanoid.Health
@@ -1475,7 +1514,7 @@ Stealer = Player.NewButton({
 		if callback then
 			task.spawn(function()
 				repeat task.wait()
-					task.wait(0.15)
+					task.wait(0.075)
 					task.spawn(function()
 						for i, v in pairs(chests) do
 							local Magnitude = (v.Position - PrimaryPart.Position).Magnitude
@@ -1503,16 +1542,15 @@ local function shoot(bow, pos)
 	ProjectileFire:InvokeServer({
 		[1] = bow,
 		[2] = bow.Name,
-		[3] = bow.Name,
-		[4] = pos,
-		[5] = shootFormulaStart,
-		[6] = Vector3.new(0,-5,0),
-		[7] = tostring(game:GetService("HttpService"):GenerateGUID(true)),
-		[8] = {
-			["drawDurationSeconds"] = 1,
+		[3] = pos,
+		[4] = shootFormulaStart,
+		[5] = Vector3.new(0,-5,0),
+		[6] = tostring(game:GetService("HttpService"):GenerateGUID(true)),
+		[7] = {
+            ["drawDurationSeconds"] = 1,
 			["shotId"] = tostring(game:GetService("HttpService"):GenerateGUID(false))
 		},
-		[9] =  workspace:GetServerTimeNow() - 0.045
+		[8] =  workspace:GetServerTimeNow() - 0.045
 	})
 end
 
@@ -1858,17 +1896,17 @@ AltDetector = Player.NewButton({
 })
 
 HighJump = Motion.NewButton({
-	Name = "HighJump",
-	Function = function(callback)
-		if callback then
-			repeat
-				PrimaryPart.Velocity += Vector3.new(0, 6, 0)
-				task.wait(0.007)
-			until not HighJump.Enabled
-		else
-			PrimaryPart.Velocity = Vector3.new(0, 25, 0)
-		end
-	end,
+    Name = "HighJump",
+    Function = function(callback)
+        if callback then
+            repeat
+                PrimaryPart.Velocity += Vector3.new(0, 6, 0)
+                task.wait(0.007)
+            until not HighJump.Enabled
+        else
+            PrimaryPart.Velocity = Vector3.new(0, 50, 0)
+        end
+    end,
 })
 
 local animtab = {
@@ -1966,10 +2004,10 @@ LongJump = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			if LongJumpMethod.Option == "Boost" then
-				TweenService:Create(PrimaryPart, TweenInfo.new(2.1), {
+				TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
 					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
 				}):Play()
-				task.delay(0.75, function()
+				task.delay(0.85, function()
 					LongJump.ToggleButton(false)
 				end)
 			end
@@ -2142,7 +2180,8 @@ local chatMessages = {
 		"Polaris > Protosense",
 		"Learn some real fighting skills with Polaris today",
 		"I'm not cheating, just good at bridging.",	
-		"Join .gg/WmSzPSDU 4 Polaris."
+		"Join .gg/WmSzPSDU 4 Polaris.",
+        "Polaris > Cocosploit",
 	},
 	UWU = {
 		"Nya~~ Get Polaris today :3",
@@ -2150,8 +2189,9 @@ local chatMessages = {
 		"I NEED Polaris inside me.",
 		"I love getting hit by Polaris from behind >-<",
 		--"Go to .gg/WmSzPSDU to get Polaris..~",
-		"Come get me and maybe you'll get Polaris.. x-x",
-		"Polaris > Protosense~ (its a logger :3)"
+		--"Come get me and maybe you'll get Polaris.. x-x",
+		"Polaris > Protosense~ (its a logger :3)",
+        "Polaris > Cocosploit~ (the scri- uwu~pt skidded off of polaris :3)"
 	},
 	TheHood = {
 		"I'm from the hood yo, go get Polaris today.",
@@ -2178,4 +2218,83 @@ Chatspammer = Misc.NewButton({
 ChatSpammerMode = Chatspammer.NewPicker({
 	Name = "Mode",
 	Options = {"Polaris", "UWU", "TheHood"}
+})
+
+local DisablerConnection
+local lplr = game.Players.LocalPlayer
+local humanoid = lplr.Character and lplr.Character:FindFirstChildOfClass("Humanoid")
+local Disabler = Exploit.NewButton({
+    Name = "SemiFloatDisabler",
+    Function = function(callback)
+        if callback then
+            task.spawn(function()
+                DisablerConnection = RunService.Heartbeat:Connect(function()
+                    if humanoid then
+                        if DisablerMethod.Option == "State" then
+                            humanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
+                            humanoid:ChangeState(Enum.HumanoidStateType.Running)
+                        elseif DisablerMethod.Option == "State2" then
+                            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+                            humanoid:ChangeState(Enum.HumanoidStateType.Running)
+                            humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
+                            humanoid:ChangeState(Enum.HumanoidStateType.Running)
+                        end
+                    end
+                end)
+            end)
+        else
+            pcall(function()
+                if DisablerConnection then
+                    DisablerConnection:Disconnect()
+                    DisablerConnection = nil
+                end
+            end)
+        end
+    end,
+})
+DisablerMethod = Disabler.NewPicker({
+    Name = "Method",
+    Options = {"State", "State2"}
+})
+
+local TrollageConnection
+RemoteTrollage = Exploit.NewButton({
+	Name = "RemoteTrollage",
+	Function = function(callback)
+		if callback then
+            task.spawn(function()
+                TrollageConnection = RunService.Heartbeat:Connect(function()
+                    task.wait()
+                    if DragonSound.Enabled then
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer(" ")
+                    end
+                    if PartyPopper.Enabled then
+                        game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
+                    end
+                    if YuziDash.Enabled then
+                        game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
+                    end
+                end)
+            end)
+		else
+            pcall(function()
+                if TrollageConnection then
+                    TrollageConnection:Disconnect()
+                    TrollageConnection = nil
+                end
+            end)
+        end
+	end,
+})
+DragonSound = RemoteTrollage.NewToggle({
+	Name = "DragonBreath",
+	Function = function() end
+})
+PartyPopper = RemoteTrollage.NewToggle({
+	Name = "PartyPopper",
+	Function = function() end
+})
+YuziDash = RemoteTrollage.NewToggle({
+	Name = "YuziDash",
+	Function = function() end
 })
