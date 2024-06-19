@@ -2228,16 +2228,16 @@ local DisablerConnection
 local lplr = game.Players.LocalPlayer
 local humanoid = lplr.Character and lplr.Character:FindFirstChildOfClass("Humanoid")
 local Disabler = Exploit.NewButton({
-    Name = "SemiFloatDisabler",
+    Name = "Disabler",
     Function = function(callback)
         if callback then
             task.spawn(function()
                 DisablerConnection = RunService.Heartbeat:Connect(function()
                     if humanoid then
-                        if DisablerMethod.Option == "State" then
+                        if DisablerMethod.Option == "SemiFloat1" then
                             humanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                        elseif DisablerMethod.Option == "State2" then
+                        elseif DisablerMethod.Option == "SemiFloat2" then
                             humanoid:ChangeState(Enum.HumanoidStateType.Seated)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
                             humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
