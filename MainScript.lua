@@ -800,28 +800,27 @@ Killaura = Combat.NewButton({
 							targetInfo = Instance.new("TextLabel",ScreenGui)
 						end
 
-                        if TargetHudMode.Option == "Basic" then
-                            pcall(function()
-                                targetInfo.Size = UDim2.fromScale(0.12, 0.05)
-                                targetInfo.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-                                targetInfo.BorderSizePixel = 0
-                                targetInfo.AnchorPoint = Vector2.new(0.5, 0.5)
-                                targetInfo.Position = UDim2.fromScale(0.6, 0.5)
-                                targetInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
-                                targetInfo.Text = "  " .. nearest.DisplayName .. " - IsWinning: " .. tostring(isWinning())
-                                targetInfo.TextXAlignment = Enum.TextXAlignment.Left
+						if TargetHudMode.Option == "Basic" then
+							pcall(function()
+								targetInfo.Size = UDim2.fromScale(.12, .05)
+								targetInfo.BackgroundColor3 = Color3.fromRGB(25,25,25)
+								targetInfo.BorderSizePixel = 0
+								targetInfo.AnchorPoint = Vector2.new(0.5,0.5)
+								targetInfo.Position = UDim2.fromScale(0.6,0.5)
+								targetInfo.TextColor3 = Color3.fromRGB(255,255,255)
+								targetInfo.Text = "  "..nearest.DisplayName.. " - IsWinning: ".. tostring(isWinning())
+								targetInfo.TextXAlignment = Enum.TextXAlignment.Left
 
-                                local hp = Instance.new("Frame", targetInfo)
-                                hp.Position = UDim2.fromScale(0, 0.9)
-                                hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-                                hp.BorderSizePixel = 0
-
-                                local healthPercentage = nearest.Character.Humanoid.Health / nearest.Character.Humanoid.MaxHealth
-                                TweenService:Create(hpBar, TweenInfo.new(0.2), {
-                                    Size = UDim2.fromScale(healthPercentage, 0.1)
-                                }):Play()
-                            end)
-                        end
+								local hp = Instance.new("Frame", targetInfo)
+								hp.Position = UDim2.fromScale(0, .9)
+								hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+								hp.BorderSizePixel = 0
+								
+								TweenService:Create(hp,TweenInfo.new(1),{
+									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
+								}):Play()
+							end)	
+						end
 
 						if TargetHudMode.Option == "Basic2" then
 							pcall(function()
