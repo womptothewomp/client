@@ -2179,8 +2179,8 @@ local chatMessages = {
 	Polaris = {
 		"When life gives you lemons, get Venus",
 		"I heard using Venus lets you win every HVH",
-		"Get Polaris today",
-		"Venus takes 5 seconds to use and it lets you win every match!",
+		"Get Venus today",
+		"Venus takes 5 seconds to get",
 		"Venus > Vxpe",
 		"Learn some real fighting skills with Venus today",
 		"I'm not cheating, just good at bridging.",	
