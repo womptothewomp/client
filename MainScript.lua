@@ -735,7 +735,8 @@ Killaura = Combat.NewButton({
                     spoofHand(weapon.Name)
 
                     task.spawn(	function()
-			lplr.Character:SetPrimaryPartCFrame(CFrame.new(lplr.Character.PrimaryPart.Position, Vector3.new(v.Character:FindFirstChild("HumanoidRootPart").Position.X, lplr.Character.PrimaryPart.Position.Y, v.Character:FindFirstChild("HumanoidRootPart").Position.Z)))							
+			local plp = players.LocalPlayer							
+			plp.Character:SetPrimaryPartCFrame(CFrame.new(lplr.Character.PrimaryPart.Position, Vector3.new(v.Character:FindFirstChild("HumanoidRootPart").Position.X, lplr.Character.PrimaryPart.Position.Y, v.Character:FindFirstChild("HumanoidRootPart").Position.Z)))							
                         for i = 1,1 do
                             AuraRemote:FireServer({
                                 chargedAttack = {
