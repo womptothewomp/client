@@ -302,7 +302,7 @@ cmdSystem.RegisterCommand("becomesprings",function(args)
 	end)
 end)
 
-cmdSystem.RegisterCommand("bind",function(args)
+cmdSystem.RegisterCommand(".bind",function(args)
 	local module = nil
 	local name = ""
 
