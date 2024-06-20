@@ -1374,6 +1374,26 @@ NoSlowDown = Motion.NewButton({
 	end,
 })
 
+Nuker = Player.NewButton({
+	Name = "Nuker",
+	Function = function(callback)
+		if callback then
+			repeat task.wait()
+				for i,v in pairs(workspace.PlacedItems:GetChildren()) do 
+				if v:GetAttribute("Breakable") and (NukerAllBlocks["Enabled"] or v.Name == "bed") then 
+					if v:GetAttribute("DisplayName"):find(tostring(lplr.Team)) then continue end
+					end
+					if v:IsA("Model") and v.PrimaryPart and (v.PrimaryPart.Position - entity.character.HumanoidRootPart.Position).Magnitude < 25 then 
+    						fireremote("HitBlock", "wooden_pickaxe", v)
+					end
+				end
+				task.wait(0.01)																			
+			until not Nuker.Enabled																				
+		end
+	end,
+})
+																			
+
 Phase = Player.NewButton({
 	Name = "Phase",
 	Function = function(callback)
