@@ -1220,7 +1220,7 @@ Fly = Motion.NewButton({
 	Keybind = Enum.KeyCode.R,
 	Function = function(callback)
 		if callback then
-			if ArrayStyle.Option == "vanila" then															
+			if flymode.Option == "vanila" then															
 				flycon = RunService.Heartbeat:Connect(function()
 					local velo = PrimaryPart.Velocity
 					PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
