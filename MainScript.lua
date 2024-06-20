@@ -1232,63 +1232,60 @@ Fly = Motion.NewButton({
                         PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
                     end
                 end)
-            end
-            if flyMode.Option == "fast" then
+            elseif flyMode.Option == "fast" then
                 TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
                     CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
                 }):Play()
                 task.delay(0.85, function()
                     Fly.ToggleButton(false)
                 end)
-            end
-
-            if flyMode.Option == "Inf" then
-                infFlyPart = Instance.new("Part",workspace)
+            elseif flyMode.Option == "Inf" then
+                infFlyPart = Instance.new("Part", workspace)
                 infFlyPart.Anchored = true
                 infFlyPart.CanCollide = true
                 infFlyPart.CFrame = PrimaryPart.CFrame
                 infFlyPart.Size = Vector3.new(.5 ,.5, .5)
                 infFlyPart.Transparency = 1
-                PrimaryPart.CFrame += Vector3.new(0,1000000,0)
+                PrimaryPart.CFrame += Vector3.new(0, 1000000, 0)
                 CurrentCamera.CameraSubject = infFlyPart
-                repeat
-                    task.wait()
-                    if PrimaryPart.Position.Y < infFlyPart.Position.Y then
-                        PrimaryPart.CFrame += Vector3.new(0,1000000,0)
-                    end
-
-                    if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
-                        infFlyPart.CFrame += Vector3.new(0,0.45,0)
-                    end
-                    if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
-                        infFlyPart.CFrame += Vector3.new(0,-0.45,0)
-                    end
-
-                    infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X,infFlyPart.CFrame.Y,PrimaryPart.CFrame.Z)
-                until not InfiniteFly.Enabled
                 
-                pcall(function()
-                    for i = 1,10 do
+                task.spawn(function()
+                    while InfiniteFly.Enabled do
+                        task.wait()
+                        if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+                            infFlyPart.CFrame += Vector3.new(0, 0.45, 0)
+                        end
+                        if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+                            infFlyPart.CFrame += Vector3.new(0, -0.45, 0)
+                        end
+                        
+                        infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X, infFlyPart.CFrame.Y, PrimaryPart.CFrame.Z)
+                    end
+                    
+                    for i = 1, 10 do
                         task.wait(0.01)
-                        PrimaryPart.Velocity = Vector3.new(0,0,0)
+                        PrimaryPart.Velocity = Vector3.new(0, 0, 0)
                         PrimaryPart.CFrame = infFlyPart.CFrame
                     end
-                    infFlyPart:Remove()
+                    infFlyPart:Destroy()
                     CurrentCamera.CameraSubject = Character
                 end)
-            else
-                pcall(function()
-                    flycon:Disconnect()
-                end)
             end
+        else
+            pcall(function()
+                if flycon then
+                    flycon:Disconnect()
+                end
+            end)
         end
     end,
 })
 
 flyMode = Fly.NewPicker({
     Name = "Mode",
-    Options = {"vanila", "fast", "Inf"}
+    Options = {"vanila", "fast", "Infi"}
 })
+
 														
 
 local strafecon
