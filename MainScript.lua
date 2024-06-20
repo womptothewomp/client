@@ -7,7 +7,7 @@ local utils = {}
 local Polaris_user = getgenv().PolarisUser or "Developer"
 local canLoadPolaris = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
-local PolarisRelease = "2.07"
+local PolarisRelease = "1"
 
 if not canLoadPolaris then return end
 
@@ -1062,7 +1062,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "Polaris V2"
+	local text = "venus"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	local label = Instance.new("TextLabel",HUDScreen)
@@ -1111,9 +1111,9 @@ HUD = Visuals.NewButton({
 				task.wait(0.5)
 				HUDScreen = Instance.new("ScreenGui",PlayerGui)
 				HUDScreen.ResetOnSpawn = false
-				if HUDStyle.Option == "Polaris 1" then
+				if HUDStyle.Option == "venus 1" then
 					HUDS[1]()
-				elseif HUDStyle.Option == "Polaris 2" then
+				elseif HUDStyle.Option == "venus 2" then
 					HUDS[2]()
 				end
 				library.Array.SortMode = ArraySortStyle.Option
@@ -1145,11 +1145,11 @@ DeeperTransparency = HUD.NewToggle({
 })
 HUDStyle = HUD.NewPicker({
 	Name = "Logo Style",
-	Options = {"Polaris 1", "Polaris 2"}
+	Options = {"Venus 1", "Venus 2"}
 })
 ArrayStyle = HUD.NewPicker({
 	Name = "Array Style",
-	Options = {"Normal", "Gay","Space"}
+	Options = {"Normal", "Rgb","Space"}
 })
 
 task.spawn(function()
@@ -2187,21 +2187,21 @@ local chatMessages = {
         	"Venus > Cocosploit",
 	},
 	UWU = {
-		"Nya~~ Get Polaris today :3",
-		"Please get Polaris.. UwU",
-		"I NEED Polaris inside me.",
-		"I love getting hit by Polaris from behind >-<",
-		--"Go to .gg/WmSzPSDU to get Polaris..~",
-		--"Come get me and maybe you'll get Polaris.. x-x",
-		"Polaris > Protosense~ (its a logger :3)",
-        "Polaris > Cocosploit~ (the scri- uwu~pt skidded off of polaris :3)"
+		"Nya~~ Get Venus today :3",
+		"Please get Venus.. UwU",
+		"I NEED Venus inside me.",
+		"I love getting hit by Venus from behind >-<",
+		--"Go to .gg/WmSzPSDU to get Venus..~",
+		--"Come get me and maybe you'll get Venus.. x-x",
+		"Venus > Protosense~ (its a logger :3)",
+        "Venus > Cocosploit~ (the scri- uwu~pt skidded off of Venus :3)"
 	},
 	TheHood = {
-		"I'm from the hood yo, go get Polaris today.",
-		"Im gonna commit a shoot-by if you don't get Polaris.",
-		"The Hood uses Polaris to win every fight.",
-		"Polaris runs the Hood up in here.",
-		"Making bank using Polaris in the Hood, everyone listens to me."
+		"I'm from the hood yo, go get Venus today.",
+		"Im gonna commit a shoot-by if you don't get Venus.",
+		"The Hood uses Venus to win every fight.",
+		"Venus runs the Hood up in here.",
+		"Making bank using Venus in the Hood, everyone listens to me."
 	}
 }
 
