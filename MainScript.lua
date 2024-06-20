@@ -1360,7 +1360,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Bedwars", "vanila", "pulse"}
+	Options = {"Bedwars", "vanila", "WalkSpeed"}
 })
 
 NoSlowDown = Motion.NewButton({
