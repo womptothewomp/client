@@ -1353,7 +1353,8 @@ Speed = Motion.NewButton({
 				end
 				if SpeedMode.Option == "bhop" then
 					Humanoid.WalkSpeed = 23
-					humanoid:ChangeState(Enum.HumanoidStateType.Jumping)																
+					local plp = players.LocalPlayer
+					plp.Character.HumanoidRootPart.Velocity = Vector3.new(plp.Character.HumanoidRootPart.Velocity.X, 20, plp.Character.HumanoidRootPart.Velocity.Z)																
 				end																	
 				task.wait()
 			until not Speed.Enabled
@@ -1364,7 +1365,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Bedwars", "vanila", "WalkSpeed", "bhop1"}
+	Options = {"Bedwars", "vanila", "WalkSpeed", "bhop2"}
 })
 
 NoSlowDown = Motion.NewButton({
