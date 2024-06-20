@@ -1216,77 +1216,43 @@ ArrayRounded = HUD.NewToggle({
 
 local flycon
 Fly = Motion.NewButton({
-    Name = "Fly",
-    Keybind = Enum.KeyCode.R,
-    Function = function(callback)
-        if callback then
-            if flyMode.Option == "vanila" then
-                flycon = RunService.Heartbeat:Connect(function()
-                    local velo = PrimaryPart.Velocity
-                    PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
+	Name = "Fly",
+	Keybind = Enum.KeyCode.R,
+	Function = function(callback)
+		if callback then
+			if flyMode.Option == "vanila" then															
+				flycon = RunService.Heartbeat:Connect(function()
+					local velo = PrimaryPart.Velocity
+					PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
 
-                    if UserInputService:IsKeyDown("Space") then
-                        PrimaryPart.Velocity = Vector3.new(velo.X, 80, velo.Z)
-                    end
-                    if UserInputService:IsKeyDown("LeftShift") then
-                        PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
-                    end
-                end)
-            elseif flyMode.Option == "fast" then
-                TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
-                    CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
-                }):Play()
-                task.delay(0.85, function()
-                    Fly.ToggleButton(false)
-                end)
-            elseif flyMode.Option == "Inf" then
-                infFlyPart = Instance.new("Part", workspace)
-                infFlyPart.Anchored = true
-                infFlyPart.CanCollide = true
-                infFlyPart.CFrame = PrimaryPart.CFrame
-                infFlyPart.Size = Vector3.new(.5 ,.5, .5)
-                infFlyPart.Transparency = 1
-                PrimaryPart.CFrame += Vector3.new(0, 1000000, 0)
-                CurrentCamera.CameraSubject = infFlyPart
-                
-                task.spawn(function()
-                    while InfiniteFly.Enabled do
-                        task.wait()
-                        if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
-                            infFlyPart.CFrame += Vector3.new(0, 0.45, 0)
-                        end
-                        if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
-                            infFlyPart.CFrame += Vector3.new(0, -0.45, 0)
-                        end
-                        
-                        infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X, infFlyPart.CFrame.Y, PrimaryPart.CFrame.Z)
-                    end
-                    
-                    for i = 1, 10 do
-                        task.wait(0.01)
-                        PrimaryPart.Velocity = Vector3.new(0, 0, 0)
-                        PrimaryPart.CFrame = infFlyPart.CFrame
-                    end
-                    infFlyPart:Destroy()
-                    CurrentCamera.CameraSubject = Character
-                end)
-            end
-        else
-            pcall(function()
-                if flycon then
-                    flycon:Disconnect()
-                end
-            end)
-        end
-    end,
+					if UserInputService:IsKeyDown("Space") then
+						PrimaryPart.Velocity = Vector3.new(velo.X, 80, velo.Z)
+					end
+					if UserInputService:IsKeyDown("LeftShift") then
+						PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
+					end
+				end)
+			end
+			if flyMode.Option == "fast" then
+				TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
+					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
+				}):Play()
+				task.delay(0.85, function()
+					Fly.ToggleButton(false)
+				end)
+			end															
+		else
+			pcall(function()
+				flycon:Disconnect()
+			end)
+		end
+	end,
 })
 
 flyMode = Fly.NewPicker({
-    Name = "Mode",
-    Options = {"vanila", "fast", "Infi"}
-})
-
-														
+	Name = "Mode",
+	Options = {"vanila", "fast"}
+})														
 
 local strafecon
 Strafe = Motion.NewButton({
@@ -1407,26 +1373,6 @@ NoSlowDown = Motion.NewButton({
 		end
 	end,
 })
-
-Nuker = Player.NewButton({
-	Name = "Nuker",
-	Function = function(callback)
-		if callback then
-			repeat task.wait()
-				for i,v in pairs(workspace.PlacedItems:GetChildren()) do 
-				if v:GetAttribute("Breakable") and (NukerAllBlocks["Enabled"] or v.Name == "bed") then 
-					if v:GetAttribute("DisplayName"):find(tostring(lplr.Team)) then continue end
-					end
-					if v:IsA("Model") and v.PrimaryPart and (v.PrimaryPart.Position - entity.character.HumanoidRootPart.Position).Magnitude < 25 then 
-    						fireremote("HitBlock", "wooden_pickaxe", v)
-					end
-				end
-				task.wait(0.01)																			
-			until not Nuker.Enabled																				
-		end
-	end,
-})
-																			
 
 Phase = Player.NewButton({
 	Name = "Phase",
