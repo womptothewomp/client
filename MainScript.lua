@@ -1233,7 +1233,7 @@ Fly = Motion.NewButton({
 					end
 				end)
 			end
-			if LongJumpMethod.Option == "fast" then
+			if flyMode.Option == "fast" then
 				TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
 					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
 				}):Play()
