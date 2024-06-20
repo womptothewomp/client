@@ -376,7 +376,7 @@ library.NewWindow = function(name)
 		end
 
 		if config.Keybinds[Table.Name] == nil then
-			config.Keybinds[Table.Name] = tostring(Table.Keybind):split(".")[3] or "none"
+			config.Keybinds[Table.Name] = tostring(Table.Keybind):split(".")[3] or "Unknown"
 		end
 
 		library.Modules[Table.Name].Keybind = Enum.KeyCode[config.Keybinds[Table.Name]]
