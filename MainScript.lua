@@ -1013,7 +1013,7 @@ InfiniteFly = Motion.NewButton({
 					infFlyPart.CFrame += Vector3.new(0,-0.45,0)
 				end
 
-				infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X * 1.1,infFlyPart.CFrame.Y,PrimaryPart.CFrame.Z * 1.1)
+				infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X,infFlyPart.CFrame.Y,PrimaryPart.CFrame.Z)
 			until not InfiniteFly.Enabled
 
 		else
