@@ -1220,17 +1220,18 @@ Fly = Motion.NewButton({
 	Keybind = Enum.KeyCode.R,
 	Function = function(callback)
 		if callback then
-			flycon = RunService.Heartbeat:Connect(function()
-				local velo = PrimaryPart.Velocity
-				PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
+			if ArrayStyle.Option == "vanila" then															
+				flycon = RunService.Heartbeat:Connect(function()
+					local velo = PrimaryPart.Velocity
+					PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
 
-				if UserInputService:IsKeyDown("Space") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, 80, velo.Z)
-				end
-				if UserInputService:IsKeyDown("LeftShift") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
-				end
-			end)
+					if UserInputService:IsKeyDown("Space") then
+						PrimaryPart.Velocity = Vector3.new(velo.X, 80, velo.Z)
+					end
+					if UserInputService:IsKeyDown("LeftShift") then
+						PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
+					end
+				end)
 		else
 			pcall(function()
 				flycon:Disconnect()
@@ -1238,6 +1239,11 @@ Fly = Motion.NewButton({
 		end
 	end,
 })
+
+flymode = Fly.NewPicker({
+	Name = "fly mode",
+	Options = {"vanila"}
+})														
 
 local strafecon
 Strafe = Motion.NewButton({
