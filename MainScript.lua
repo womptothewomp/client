@@ -735,8 +735,6 @@ Killaura = Combat.NewButton({
                     spoofHand(weapon.Name)
 
                     task.spawn(	function()
-			local plp = players.LocalPlayer							
-			plp.Character:SetPrimaryPartCFrame(CFrame.new(plp.Character.PrimaryPart.Position, Vector3.new(v.Character:FindFirstChild("HumanoidRootPart").Position.X, plp.Character.PrimaryPart.Position.Y, v.Character:FindFirstChild("HumanoidRootPart").Position.Z)))							
                         for i = 1,1 do
                             AuraRemote:FireServer({
                                 chargedAttack = {
@@ -771,7 +769,7 @@ Killaura = Combat.NewButton({
 							local animation = auraAnimations[auraAnimation.Option]
 							local allTime = 0
 							task.spawn(function()
-								if CustomAnimation.Enabled then					
+								if CustomAnimation.Enabled then
 									animRunning = true
 									for i,v in pairs(animation) do allTime += v.Timer end
 									for i,v in pairs(animation) do
@@ -1778,7 +1776,7 @@ Scaffold = Misc.NewButton({
 				if ScaffoldMode1.Option == "Expand" then
 					for i = 1, 8 do
 						if not Scaffold.Enabled then return end
-						placeBlock((PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * i) - Vector3.new(0,4.5,0),block)												
+						placeBlock((PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * i) - Vector3.new(0,4.5,0),block)
 						task.wait()
 					end
 				end
