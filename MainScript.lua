@@ -1085,7 +1085,7 @@ HUDS[1] = function()
 	glow.ZIndex = -10
 end
 HUDS[2] = function()
-	local text = "Polaris"
+	local text = "Venus"
 
 	local frame = Instance.new("TextLabel",HUDScreen)
 	frame.Size = UDim2.fromScale(0.17,0.04)
@@ -2220,7 +2220,7 @@ Chatspammer = Misc.NewButton({
 })
 ChatSpammerMode = Chatspammer.NewPicker({
 	Name = "Mode",
-	Options = {"Polaris", "UWU", "TheHood"}
+	Options = {"Venus", "UWU", "TheHood"}
 })
 
 local DisablerConnection
