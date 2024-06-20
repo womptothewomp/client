@@ -1302,7 +1302,7 @@ LevelInfo = Visuals.NewButton({
 			end)
 			task.spawn(function()
 				repeat
-					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Polaris User: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
+					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Venus User: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
 					task.wait(1)
 				until false
 			end)
