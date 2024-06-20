@@ -985,7 +985,7 @@ ImageESPStyle = ImageESP.NewPicker({
 
 local infFlyPart
 InfiniteFly = Motion.NewButton({
-	Name = "InfFly",
+	Name = "InfFly faster",
     Keybind = Enum.KeyCode.H,
 	Function = function(callback)
 		if callback then
@@ -1013,7 +1013,7 @@ InfiniteFly = Motion.NewButton({
 					infFlyPart.CFrame += Vector3.new(0,-0.45,0)
 				end
 
-				infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X,infFlyPart.CFrame.Y,PrimaryPart.CFrame.Z)
+				infFlyPart.CFrame = CFrame.new(PrimaryPart.CFrame.X * 0.05,infFlyPart.CFrame.Y * 0.05,PrimaryPart.CFrame.Z * 0.05)
 			until not InfiniteFly.Enabled
 
 		else
