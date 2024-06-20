@@ -4,7 +4,7 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Venus_user = getgenv().PolarisUser or "Developer"
+local Venus_user = getgenv().Venus_user or "Developer"
 local canLoadPolaris = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
 local PolarisRelease = "1"
