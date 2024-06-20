@@ -1343,7 +1343,7 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "vanila" then
-					speed = 0.06
+					speed = 0.07
 					PrimaryPart.CFrame += (speed * dir)
 				end																		
 				task.wait()
