@@ -4,7 +4,7 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Polaris_user = getgenv().PolarisUser or "Developer"
+local Venus_user = getgenv().PolarisUser or "Developer"
 local canLoadPolaris = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
 local PolarisRelease = "1"
@@ -1302,7 +1302,7 @@ LevelInfo = Visuals.NewButton({
 			end)
 			task.spawn(function()
 				repeat
-					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Polaris User: "..Polaris_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
+					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Polaris User: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
 					task.wait(1)
 				until false
 			end)
