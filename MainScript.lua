@@ -723,7 +723,7 @@ local swingAnim
 local auraConnection
 local targetInfo = Instance.new("TextLabel",ScreenGui)
 Killaura = Combat.NewButton({
-	Name = "Killaura",
+	Name = "aura",
 	Keybind = Enum.KeyCode.X,
 	Function = function(callback)
 		if callback then
