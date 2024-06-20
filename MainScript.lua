@@ -770,6 +770,7 @@ Killaura = Combat.NewButton({
 							local allTime = 0
 							task.spawn(function()
 								if CustomAnimation.Enabled then
+									lplr.Character:SetPrimaryPartCFrame(CFrame.new(lplr.Character.PrimaryPart.Position, Vector3.new(v.Character:FindFirstChild("HumanoidRootPart").Position.X, lplr.Character.PrimaryPart.Position.Y, v.Character:FindFirstChild("HumanoidRootPart").Position.Z)))					
 									animRunning = true
 									for i,v in pairs(animation) do allTime += v.Timer end
 									for i,v in pairs(animation) do
@@ -1776,43 +1777,7 @@ Scaffold = Misc.NewButton({
 				if ScaffoldMode1.Option == "Expand" then
 					for i = 1, 8 do
 						if not Scaffold.Enabled then return end
-						placeBlock((PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * i) - Vector3.new(0,4.5,0),block)
-						-- Get necessary services
-						local Players = game:GetService("Players")
-						local RunService = game:GetService("RunService")
-						
-						-- Function to handle camera movement
-						local function AdjustCamera()
-						    -- Get the local player
-						    local player = Players.LocalPlayer
-						    if not player then
-						        return
-						    end
-						
-						    -- Check if the player's character and camera exist
-						    local character = player.Character
-						    local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
-						    local camera = game.Workspace.CurrentCamera
-						
-						    if character and humanoidRootPart and camera then
-						        -- Define camera offset and rotation
-						        local offset = Vector3.new(0, 5, -10) -- Adjust these values for the desired offset
-						        local lookAtOffset = Vector3.new(0, 3, 5) -- Point the camera slightly above and behind the player
-						
-						        -- Calculate the camera position and look at position
-						        local cameraPosition = humanoidRootPart.Position + offset
-						        local lookAtPosition = humanoidRootPart.Position + lookAtOffset
-						
-						        -- Set the camera CFrame
-						        camera.CFrame = CFrame.new(cameraPosition, lookAtPosition)
-						    end
-						end
-						
-						-- Connect the AdjustCamera function to the RenderStepped event
-						RunService.RenderStepped:Connect(function()
-						    AdjustCamera()
-						end)
-																					
+						placeBlock((PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * i) - Vector3.new(0,4.5,0),block)												
 						task.wait()
 					end
 				end
