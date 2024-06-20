@@ -985,7 +985,7 @@ ImageESPStyle = ImageESP.NewPicker({
 
 local infFlyPart
 InfiniteFly = Motion.NewButton({
-	Name = "InfiniteFly",
+	Name = "InfFly",
     Keybind = Enum.KeyCode.H,
 	Function = function(callback)
 		if callback then
@@ -2046,7 +2046,7 @@ LongJump = Motion.NewButton({
 })
 LongJumpMethod = LongJump.NewPicker({
 	Name = "Mode",
-	Options = {"Boost", "Gravity"}
+	Options = {"Gravity"}
 })
 
 TexturePack = Visuals.NewButton({
