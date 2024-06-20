@@ -1777,6 +1777,35 @@ Scaffold = Misc.NewButton({
 					for i = 1, 8 do
 						if not Scaffold.Enabled then return end
 						placeBlock((PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * i) - Vector3.new(0,4.5,0),block)
+						-- Get necessary services
+						local Players = game:GetService("Players")
+						local Camera = game.Workspace.CurrentCamera
+						-- Function to handle camera movement
+						local function AdjustCamera()
+						    -- Get the local player
+						    local player = Players.LocalPlayer
+						    if not player then
+						        return
+						    end
+						    -- Check if the player is in third-person view
+						    if Camera.CameraType == Enum.CameraType.Custom then
+						        -- Adjust camera look direction based on player's movement or input
+						        local character = player.Character
+						        if character then
+						            -- Look behind and down
+						            local cameraLookVector = (character.HumanoidRootPart.Position - Camera.CFrame.Position).unit
+						            local desiredLookVector = Vector3.new(cameraLookVector.X, -0.5, cameraLookVector.Z) -- Adjust -0.5 to control downward look angle
+						
+						            -- Set camera CFrame
+						            Camera.CFrame = CFrame.new(Camera.CFrame.Position, Camera.CFrame.Position + desiredLookVector)
+						        end
+						    end
+						end
+						
+						-- Connect the AdjustCamera function to the RenderStepped event
+						game:GetService("RunService").RenderStepped:Connect(function()
+						    AdjustCamera()
+						end)																						
 						task.wait()
 					end
 				end
