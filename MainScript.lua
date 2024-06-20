@@ -1238,7 +1238,7 @@ Fly = Motion.NewButton({
 					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
 				}):Play()
 				task.delay(0.85, function()
-					LongJump.ToggleButton(false)
+					Fly.ToggleButton(false)
 				end)
 			end															
 		else
