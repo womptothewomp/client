@@ -1232,6 +1232,14 @@ Fly = Motion.NewButton({
 						PrimaryPart.Velocity = Vector3.new(velo.X, -80, velo.Z)
 					end
 				end)
+			end
+			if LongJumpMethod.Option == "fast" then
+				TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
+					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
+				}):Play()
+				task.delay(0.85, function()
+					LongJump.ToggleButton(false)
+				end)
 			end															
 		else
 			pcall(function()
@@ -1243,7 +1251,7 @@ Fly = Motion.NewButton({
 
 flyMode = Fly.NewPicker({
 	Name = "Mode",
-	Options = {"vanila"}
+	Options = {"vanila", "fast"}
 })														
 
 local strafecon
@@ -2014,14 +2022,6 @@ LongJump = Motion.NewButton({
 	Keybind = Enum.KeyCode.J,
 	Function = function(callback)
 		if callback then
-			if LongJumpMethod.Option == "Boost" then
-				TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
-					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
-				}):Play()
-				task.delay(0.85, function()
-					LongJump.ToggleButton(false)
-				end)
-			end
 			if LongJumpMethod.Option == "Gravity" then
 				workspace.Gravity = 5
 				task.delay(0.01, function()
