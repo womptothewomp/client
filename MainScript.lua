@@ -36,17 +36,17 @@ local config = {
 }
 
 local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Polaris/config.json") then delfile("Polaris/config.json"); end
-	writefile("Polaris/config.json",encrypt)
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("venus/config.json") then delfile("venus/config.json"); end
+	writefile("venus/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Polaris/config.json"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("venus/config.json"))
 	config = decrypt
 end
 
-if not isfile("Polaris/config.json") then
-	makefolder("Polaris")
+if not isfile("venus/config.json") then
+	makefolder("venus")
 	saveConfig()
 end
 
@@ -2191,7 +2191,7 @@ TxtpackMode = TexturePack.NewPicker({
 })
 
 local chatMessages = {
-	Polaris = {
+	venus = {
 		"When life gives you lemons, get Venus",
 		"I heard using Venus lets you win every HVH",
 		"Get Venus today",
