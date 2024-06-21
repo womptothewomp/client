@@ -1254,7 +1254,7 @@ Fly = Motion.NewButton({
 
 flyMode = Fly.NewPicker({
 	Name = "Mode",
-	Options = {"vanila", "fast", "damage"}
+	Options = {"vanila", "fast"}
 })														
 
 local strafecon
