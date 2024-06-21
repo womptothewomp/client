@@ -1223,7 +1223,7 @@ Fly = Motion.NewButton({
 	Keybind = Enum.KeyCode.R,
 	Function = function(callback)
 		if callback then
-			if flyMode.Option == "vanila" then															
+			if flyMode.Option == "vanila" then
 				flycon = RunService.Heartbeat:Connect(function()
 					local velo = PrimaryPart.Velocity
 					PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
@@ -1248,15 +1248,14 @@ Fly = Motion.NewButton({
 			if flyMode.Option == "damage" then
 				if (hurttime <= 50) then
 					TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
-					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 10, 0)
+						CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 10, 0)
 					}):Play()
 					task.delay(0.85, function()
-					Fly.ToggleButton(false)
+						Fly.ToggleButton(false)
+					end)
 				end
-
-				lastHP = Humanoid.Health																
-				end)
-			end														
+				lastHP = Humanoid.Health
+			end
 		else
 			pcall(function()
 				flycon:Disconnect()
