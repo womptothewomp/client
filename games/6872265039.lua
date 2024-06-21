@@ -4,7 +4,7 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Polaris_user = "Test"
+local Venus_user = "Test"
 local hurttime = 0
 local PolarisRelease = "1.03 Beta"
 
@@ -854,7 +854,7 @@ LevelInfo = Visuals.NewButton({
 			end)
 			task.spawn(function()
 				repeat
-					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Polaris User: "..Polaris_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
+					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Venus user: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
 					task.wait(1)
 				until false
 			end)
