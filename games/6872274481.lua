@@ -1005,7 +1005,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "Polaris V2"
+	local text = "venus"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	local label = Instance.new("TextLabel",HUDScreen)
