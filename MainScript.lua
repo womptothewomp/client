@@ -1238,23 +1238,11 @@ Fly = Motion.NewButton({
 			end
 			if flyMode.Option == "fast" then
 				TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
-					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 5, 0)
+					CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 10, 0)
 				}):Play()
 				task.delay(0.85, function()
 					Fly.ToggleButton(false)
 				end)
-			end
-
-			if flyMode.Option == "damage" then
-				if (hurttime <= 50) then
-					TweenService:Create(PrimaryPart, TweenInfo.new(2.3), {
-						CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 50 + Vector3.new(0, 10, 0)
-					}):Play()
-					task.delay(0.85, function()
-						Fly.ToggleButton(false)
-					end)
-				end
-				lastHP = Humanoid.Health
 			end
 		else
 			pcall(function()
