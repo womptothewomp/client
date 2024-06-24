@@ -6,7 +6,7 @@ local utils = {}
 
 local Vanila_user = "Test"
 local hurttime = 0
-local PolarisRelease = "1.03 Beta"
+local VanilaRelease = "1.03 Beta"
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
@@ -33,19 +33,19 @@ local config = {
 	Keybinds = {}
 }
 local function saveConfig()
-	local encrypt = HttpService:JSONEncode(config); if isfile("Polaris/config/" .. game.PlaceId .. ".json") then delfile("Polaris/config/" .. game.PlaceId .. ".json"); end
-	writefile("Polaris/config/"..game.PlaceId..".json",encrypt)
+	local encrypt = HttpService:JSONEncode(config); if isfile("Vanila/config/" .. game.PlaceId .. ".json") then delfile("Vanila/config/" .. game.PlaceId .. ".json"); end
+	writefile("Vanila/config/"..game.PlaceId..".json",encrypt)
 end
 
-if not isfile("Polaris") then
-	makefolder("Polaris")
-	makefolder("Polaris/games")
-	makefolder("Polaris/config")
+if not isfile("Vanila") then
+	makefolder("Vanila")
+	makefolder("Vanila/games")
+	makefolder("Vanila/config")
 	saveConfig()
 end
 
 local function loadConfig()
-	local decrypt = HttpService:JSONDecode(readfile("Polaris/config/" .. game.PlaceId .. ".json"))
+	local decrypt = HttpService:JSONDecode(readfile("Vanila/config/" .. game.PlaceId .. ".json"))
 	config = decrypt
 end
 
@@ -1028,14 +1028,14 @@ HUDS[1] = function()
 	glow.ZIndex = -10
 end
 HUDS[2] = function()
-	local text = "Polaris"
+	local text = "Vanila"
 
 	local frame = Instance.new("TextLabel",HUDScreen)
 	frame.Size = UDim2.fromScale(0.17,0.04)
 	frame.Position = UDim2.fromScale(0.02,0)
 	frame.BorderSizePixel = 0
 	frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
-	frame.Text = text .. " | Build "..PolarisRelease 
+	frame.Text = text .. " | Build "..VanilaRelease 
 	frame.TextColor3 = Color3.fromRGB(255,255,255)
 	frame.Size = UDim2.fromScale(0.1,0.035)
 	frame.TextSize = 12
@@ -1054,9 +1054,9 @@ HUD = Visuals.NewButton({
 				task.wait(0.5)
 				HUDScreen = Instance.new("ScreenGui",PlayerGui)
 				HUDScreen.ResetOnSpawn = false
-				if HUDStyle.Option == "Polaris 1" then
+				if HUDStyle.Option == "Vanila 1" then
 					HUDS[1]()
-				elseif HUDStyle.Option == "Polaris 2" then
+				elseif HUDStyle.Option == "Vanila 2" then
 					HUDS[2]()
 				end
 				library.Array.SortMode = ArraySortStyle.Option
@@ -1073,7 +1073,7 @@ HUD = Visuals.NewButton({
 })
 HUDStyle = HUD.NewPicker({
 	Name = "Logo Style",
-	Options = {"Polaris 1", "Polaris 2"}
+	Options = {"Vanila 1", "Vanila 2"}
 })
 ArrayStyle = HUD.NewPicker({
 	Name = "Array Style",
@@ -2093,31 +2093,31 @@ TxtpackMode = TexturePack.NewPicker({
 })
 
 local chatMessages = {
-	Polaris = {
-		"When life gives you lemons, get Polaris",
-		"I heard using Polaris lets you win every HVH",
-		"Get Polaris today",
-		"Polaris takes 5 seconds to use and it lets you win every match!",
-		"Polaris > Protosense",
-		"Learn some real fighting skills with Polaris today",
+	Vanila = {
+		"When life gives you lemons, get Vanila",
+		"I heard using Vanila lets you win every HVH",
+		"Get Vanila today",
+		"Vanila takes 5 seconds to use and it lets you win every match!",
+		"Vanila > Protosense",
+		"Learn some real fighting skills with Vanila today",
 		"I'm not cheating, just good at bridging.",	
-		"Join .gg/WmSzPSDU 4 Polaris."
+		"Join .gg/WmSzPSDU 4 Vanila."
 	},
 	UWU = {
-		"Nya~~ Get Polaris today :3",
-		"Please get Polaris.. UwU",
-		"I NEED Polaris inside me.",
-		"I love getting hit by Polaris from behind >-<",
-		--"Go to .gg/WmSzPSDU to get Polaris..~",
-		"Come get me and maybe you'll get Polaris.. x-x",
-		"Polaris > Protosense~ (its a logger :3)"
+		"Nya~~ Get Vanila today :3",
+		"Please get Vanila.. UwU",
+		"I NEED Vanila inside me.",
+		"I love getting hit by Vanila from behind >-<",
+		--"Go to .gg/WmSzPSDU to get Vanila..~",
+		"Come get me and maybe you'll get Vanila.. x-x",
+		"Vanila > Protosense~ (its a logger :3)"
 	},
 	TheHood = {
-		"I'm from the hood yo, go get Polaris today.",
-		"Im gonna commit a shoot-by if you don't get Polaris.",
-		"The Hood uses Polaris to win every fight.",
-		"Polaris runs the Hood up in here.",
-		"Making bank using Polaris in the Hood, everyone listens to me."
+		"I'm from the hood yo, go get Vanila today.",
+		"Im gonna commit a shoot-by if you don't get Vanila.",
+		"The Hood uses Vanila to win every fight.",
+		"Vanila runs the Hood up in here.",
+		"Making bank using Vanila in the Hood, everyone listens to me."
 	}
 }
 
@@ -2136,9 +2136,9 @@ Chatspammer = Misc.NewButton({
 })
 ChatSpammerMode = Chatspammer.NewPicker({
 	Name = "Mode",
-	Options = {"Polaris", "UWU", "TheHood"}
+	Options = {"Vanila", "UWU", "TheHood"}
 })
 
-if not isfile("Polaris/games/"..game.PlaceId..".lua") then
-	writefile("Polaris/games/"..game.PlaceId..".lua")
+if not isfile("Vanila/games/"..game.PlaceId..".lua") then
+	writefile("Vanila/games/"..game.PlaceId..".lua")
 end
