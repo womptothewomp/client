@@ -565,9 +565,9 @@ Misc = library.NewWindow("Misc")
 Exploit = library.NewWindow("Exploit")
 Legit = library.NewWindow("Legit")
 
-local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Bedwars/weaponMeta", true))()
-local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Bedwars/Functions.lua", true))()
-local Utilities = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Libraries/utils.lua", true))()
+local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/VelocityCheats/venus-client-for-roblox/main/Bedwars/weaponMeta", true))()
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/VelocityCheats/venus-client-for-roblox/main/Bedwars/Functions.lua", true))()
+local Utilities = loadstring(game:HttpGet("https://raw.githubusercontent.com/VelocityCheats/venus-client-for-roblox/main/Libraries/utils.lua", true))()
 
 local getRemote = Functions.getRemote
 
