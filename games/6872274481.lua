@@ -4,7 +4,7 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Venus_user = "Test"
+local Vanila_user = "Test"
 local hurttime = 0
 local PolarisRelease = "1.03 Beta"
 
@@ -565,9 +565,9 @@ Misc = library.NewWindow("Misc")
 Exploit = library.NewWindow("Exploit")
 Legit = library.NewWindow("Legit")
 
-local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/AeolusV2/main/Bedwars/weaponMeta", true))()
-local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/AeolusV2/main/Bedwars/Functions.lua", true))()
-local Utilities = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/AeolusV2/main/Libraries/utils.lua", true))()
+local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Bedwars/weaponMeta", true))()
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Bedwars/Functions.lua", true))()
+local Utilities = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Libraries/utils.lua", true))()
 
 local getRemote = Functions.getRemote
 
@@ -1005,7 +1005,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "venus"
+	local text = "Vanila"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	local label = Instance.new("TextLabel",HUDScreen)
@@ -1215,7 +1215,7 @@ LevelInfo = Visuals.NewButton({
 			end)
 			task.spawn(function()
 				repeat
-					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Venus user: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
+					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Vanila user: "..Vanila_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
 					task.wait(1)
 				until false
 			end)
