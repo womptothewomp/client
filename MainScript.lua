@@ -4,12 +4,12 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Venus_user = getgenv().Venus_user or "Developer"
-local canLoadPolaris = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
+local Vanila_user = getgenv().Vanila_user or "Developer"
+local canLoadVanila = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
-local PolarisRelease = "1"
+local VanilaRelease = "1"
 
-if not canLoadPolaris then return end
+if not canLoadVanila then return end
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
@@ -36,17 +36,17 @@ local config = {
 }
 
 local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("venus/config.json") then delfile("venus/config.json"); end
-	writefile("venus/config.json",encrypt)
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Vanila/config.json") then delfile("Vanila/config.json"); end
+	writefile("Vanila/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("venus/config.json"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Vanila/config.json"))
 	config = decrypt
 end
 
-if not isfile("venus/config.json") then
-	makefolder("venus")
+if not isfile("Vanila/config.json") then
+	makefolder("Vanila")
 	saveConfig()
 end
 
@@ -570,9 +570,9 @@ Misc = library.NewWindow("Misc")
 Exploit = library.NewWindow("Exploit")
 Legit = library.NewWindow("Legit")
 
-local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/AeolusV2/main/Bedwars/weaponMeta", true))()
-local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/AeolusV2/main/Bedwars/Functions.lua", true))()
-local Utilities = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/AeolusV2/main/Libraries/utils.lua", true))()
+local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Bedwars/weaponMeta", true))()
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Bedwars/Functions.lua", true))()
+local Utilities = loadstring(game:HttpGet("https://raw.githubusercontent.com/RunAccount1/VanilaV2/main/Libraries/utils.lua", true))()
 
 local getRemote = Functions.getRemote
 
@@ -1065,7 +1065,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "venus"
+	local text = "Vanila"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	local label = Instance.new("TextLabel",HUDScreen)
@@ -1088,14 +1088,14 @@ HUDS[1] = function()
 	glow.ZIndex = -10
 end
 HUDS[2] = function()
-	local text = "Venus"
+	local text = "Vanila"
 
 	local frame = Instance.new("TextLabel",HUDScreen)
 	frame.Size = UDim2.fromScale(0.17,0.04)
 	frame.Position = UDim2.fromScale(0.02,0)
 	frame.BorderSizePixel = 0
 	frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
-	frame.Text = text .. " | Build "..PolarisRelease 
+	frame.Text = text .. " | Build "..VanilaRelease 
 	frame.TextColor3 = Color3.fromRGB(255,255,255)
 	frame.Size = UDim2.fromScale(0.1,0.035)
 	frame.TextSize = 12
@@ -1114,9 +1114,9 @@ HUD = Visuals.NewButton({
 				task.wait(0.5)
 				HUDScreen = Instance.new("ScreenGui",PlayerGui)
 				HUDScreen.ResetOnSpawn = false
-				if HUDStyle.Option == "venus 1" then
+				if HUDStyle.Option == "Vanila 1" then
 					HUDS[1]()
-				elseif HUDStyle.Option == "venus 2" then
+				elseif HUDStyle.Option == "Vanila 2" then
 					HUDS[2]()
 				end
 				library.Array.SortMode = ArraySortStyle.Option
@@ -1148,7 +1148,7 @@ DeeperTransparency = HUD.NewToggle({
 })
 HUDStyle = HUD.NewPicker({
 	Name = "Logo Style",
-	Options = {"Venus 1", "Venus 2"}
+	Options = {"Vanila 1", "Vanila 2"}
 })
 ArrayStyle = HUD.NewPicker({
 	Name = "Array Style",
@@ -1302,7 +1302,7 @@ LevelInfo = Visuals.NewButton({
 			end)
 			task.spawn(function()
 				repeat
-					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Venus User: "..Venus_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
+					statsxd.Text = "FPS: "..tostring(fpscount).. " \n \n Username: "..LocalPlayer.DisplayName.. " \n \n Vanila User: "..Vanila_user.. " \n \n Network: Bedwars.com \n \n Game: Bedwars \n \n Hurttime: "..hurttime
 					task.wait(1)
 				until false
 			end)
@@ -2191,32 +2191,32 @@ TxtpackMode = TexturePack.NewPicker({
 })
 
 local chatMessages = {
-	venus = {
-		"When life gives you lemons, get Venus",
-		"I heard using Venus lets you win every HVH",
-		"Get Venus today",
-		"Venus takes 5 seconds to get",
-		"Venus > Vxpe",
-		"Learn some real fighting skills with Venus today",
+	Vanila = {
+		"When life gives you lemons, get Vanila",
+		"I heard using Vanila lets you win every HVH",
+		"Get Vanila today",
+		"Vanila takes 5 seconds to get",
+		"Vanila > Vxpe",
+		"Learn some real fighting skills with Vanila today",
 		"I'm not cheating, just good at bridging.",	
-        	"Venus > Cocosploit",
+        	"Vanila > Cocosploit",
 	},
 	UWU = {
-		"Nya~~ Get Venus today :3",
-		"Please get Venus.. UwU",
-		"I NEED Venus inside me.",
-		"I love getting hit by Venus from behind >-<",
-		--"Go to .gg/WmSzPSDU to get Venus..~",
-		--"Come get me and maybe you'll get Venus.. x-x",
-		"Venus > Protosense~ (its a logger :3)",
-        "Venus > Cocosploit~ (the scri- uwu~pt skidded off of Venus :3)"
+		"Nya~~ Get Vanila today :3",
+		"Please get Vanila.. UwU",
+		"I NEED Vanila inside me.",
+		"I love getting hit by Vanila from behind >-<",
+		--"Go to .gg/WmSzPSDU to get Vanila..~",
+		--"Come get me and maybe you'll get Vanila.. x-x",
+		"Vanila > Protosense~ (its a logger :3)",
+        "Vanila > Cocosploit~ (the scri- uwu~pt skidded off of Vanila :3)"
 	},
 	TheHood = {
-		"I'm from the hood yo, go get Venus today.",
-		"Im gonna commit a shoot-by if you don't get Venus.",
-		"The Hood uses Venus to win every fight.",
-		"Venus runs the Hood up in here.",
-		"Making bank using Venus in the Hood, everyone listens to me."
+		"I'm from the hood yo, go get Vanila today.",
+		"Im gonna commit a shoot-by if you don't get Vanila.",
+		"The Hood uses Vanila to win every fight.",
+		"Vanila runs the Hood up in here.",
+		"Making bank using Vanila in the Hood, everyone listens to me."
 	}
 }
 
@@ -2235,7 +2235,7 @@ Chatspammer = Misc.NewButton({
 })
 ChatSpammerMode = Chatspammer.NewPicker({
 	Name = "Mode",
-	Options = {"Venus", "UWU", "TheHood"}
+	Options = {"Vanila", "UWU", "TheHood"}
 })
 
 local DisablerConnection
