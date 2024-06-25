@@ -914,86 +914,6 @@ for i,v in pairs(assetTable) do
 	table.insert(stylesofskybox, i)
 end
 
-SelfESP = Visuals.NewButton({
-	Name = "SelfESP",
-	Function = function(callback)
-		if callback then
-			local e = Instance.new("BillboardGui",LocalPlayer.Character.PrimaryPart)
-			local image = Instance.new("ImageLabel",e)
-			image.Size = UDim2.fromScale(10,10)
-			image.Position = UDim2.fromScale(-3,-4)
-
-			image.BackgroundTransparency = 1
-			e.Size = UDim2.fromScale(0.5,0.5)
-			e.AlwaysOnTop = true
-			e.Name = "nein"
-
-			task.spawn(function()
-				repeat task.wait()
-					image.Image = assetTable[SelfESPStyle.Option]
-				until not SelfESP.Enabled
-			end)
-
-		else
-			pcall(function()
-				LocalPlayer.Character.PrimaryPart.nein:Destroy()
-			end)
-		end
-	end,
-})
-SelfESPStyle = SelfESP.NewPicker({
-	Name = "Style",
-	Options = stylesofskybox
-})
-
-ImageESP = Visuals.NewButton({
-	Name = "ImageESP",
-	Function = function(callback)
-		if callback then
-
-			task.spawn(function()
-				repeat
-					pcall(function()
-						for i,v in pairs(Players:GetPlayers()) do
-							if not (v.Character.PrimaryPart:FindFirstChild("nein")) then
-								if v ~= LocalPlayer and ImageESP.Enabled then
-									local e = Instance.new("BillboardGui",v.Character.PrimaryPart)
-
-									local image = Instance.new("ImageLabel",e)
-									image.Size = UDim2.fromScale(10,10)
-									image.Position = UDim2.fromScale(-3,-4)
-									image.Image = assetTable[ImageESPStyle.Option]
-									image.BackgroundTransparency = 1
-
-									e.Size = UDim2.fromScale(0.5,0.5)
-									e.AlwaysOnTop = true
-									e.Name = "nein"
-								end
-							end
-						end
-					end)
-					task.wait()
-				until not ImageESP.Enabled
-			end)
-
-		else
-			pcall(function()
-				for i,v in pairs(Players:GetPlayers()) do
-					if (v.Character.PrimaryPart:FindFirstChild("nein")) then
-						if v ~= LocalPlayer then
-							v.Character.PrimaryPart:FindFirstChild("nein"):Destroy()
-						end
-					end
-				end
-			end)
-		end
-	end,
-})
-ImageESPStyle = ImageESP.NewPicker({
-	Name = "Style",
-	Options = stylesofskybox
-})
-
 local infFlyPart
 InfiniteFly = Motion.NewButton({
 	Name = "InfFly",
@@ -1552,63 +1472,9 @@ ESP = Visuals.NewButton({
 				       end
 				   end
 				end)
-			until not ESP.Enabled
 		end
 	end,
 })																				
-
-local JumpCirclesCon
-JumpPlates = Visuals.NewButton({
-	Name = "JumpPlates",
-	Function = function(callback)
-		if callback then
-			task.spawn(function()
-				repeat task.wait()
-					local state = Humanoid:GetState()
-
-					if state == Enum.HumanoidStateType.Jumping then
-						local plate = Instance.new("Part",workspace)
-						plate.Anchored = true
-						plate.CanCollide = false
-						plate.CastShadow = false
-						plate.Size = Vector3.new(0,0,0)
-						plate.CFrame = PrimaryPart.CFrame
-						plate.Material = Enum.Material.Neon
-						plate.Color = library.Color
-
-						game.TweenService:Create(plate,TweenInfo.new(0.6),{
-							Size = Vector3.new(4,1,4),
-							CFrame = plate.CFrame - Vector3.new(0,2,0),
-							Transparency = 1
-						}):Play()
-
-						game.Debris:AddItem(plate,0.6)
-					end
-				until not JumpPlates.Enabled
-			end)
-		end
-	end,
-})
-
-local lastpos
-Antifall = Misc.NewButton({
-	Name = "Antifall",
-	Function = function(callback)
-		if callback then
-			repeat
-				if PrimaryPart.CFrame.Y < 0 then
-					for i = 1, 15 do
-						task.wait()
-						PrimaryPart.CFrame += Vector3.new(0, 1, 0)
-						PrimaryPart.Velocity = Vector3.new(10, -50, 10)
-					end
-					PrimaryPart.CFrame = lastPosOnGround
-				end
-				task.wait()
-			until not Antifall.Enabled
-		end
-	end,
-})
 
 local nofallremote = getRemote("GroundHit")
 Nofall = Misc.NewButton({
