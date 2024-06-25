@@ -1,5 +1,5 @@
 local gameId = game.PlaceId
-shared.AeolusLoaded = true
+shared.VanilaLoaded = true
 
 local config = {
 	Buttons = {},
@@ -10,19 +10,19 @@ local config = {
 
 local function saveConfig()
 	local encrypt = game:GetService("HttpService"):JSONEncode(config)
-	if isfile("Aeolus/config.json") then
-		delfile("Aeolus/config.json")
+	if isfile("Vanila/config.json") then
+		delfile("Vanila/config.json")
 	end
-	writefile("Aeolus/config.json",encrypt)
+	writefile("Vanila/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Aeolus/config.json"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Vanila/config.json"))
 	config = decrypt
 end
 
-if not isfile("Aeolus/config.json") then
-	makefolder("Aeolus")
+if not isfile("Vanila/config.json") then
+	makefolder("Vanila")
 	saveConfig()
 end
 
