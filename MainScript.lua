@@ -1441,9 +1441,8 @@ VanilaLogo = Visuals.NewButton({
 				local gui = Instance.new("ScreenGui")
 				gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 				local imageLabel = Instance.new("ImageLabel")
-				imageLabel.Size = UDim2.new(0, 200, 0, 200)  -- Set size (width, height)
-				imageLabel.Position = UDim2.new(0, 0, 0, 0)  -- Set position (centered)
-				imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)  -- Center anchor point
+				imageLabel.Size = UDim2.new(0, 144, 0, 175)
+				imageLabel.Position = UDim2.new(0, 0, 0, 0)
 				local imageUrl = "http://www.roblox.com/asset/?id=18197067413"
 				imageLabel.Image = imageUrl
 				imageLabel.BackgroundTransparency = 1  -- Make background transparent
