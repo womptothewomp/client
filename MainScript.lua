@@ -28,6 +28,18 @@ TweenService = game.TweenService
 DefaultChatSystemChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
 inventory = workspace[LocalPlayer.Name].InventoryFolder.Value
 
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(0, 144, 0, 175)
+imageLabel.Position = UDim2.new(0, 0, 0, 0)
+local imageUrl = "http://www.roblox.com/asset/?id=18197067413"
+imageLabel.Image = imageUrl
+imageLabel.BackgroundTransparency = 1
+imageLabel.Parent = gui
+
+
 local config = {
 	Buttons = {},
 	Toggles = {},
@@ -1429,25 +1441,6 @@ Spider = Motion.NewButton({
 
 				task.wait()
 			until not Spider.Enabled
-		end
-	end,
-})
-
-VanilaLogo = Visuals.NewButton({
-	Name = "VanilaLogo",
-	Function = function(callback)
-		if callback then
-			repeat task.wait()
-				local gui = Instance.new("ScreenGui")
-				gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-				local imageLabel = Instance.new("ImageLabel")
-				imageLabel.Size = UDim2.new(0, 144, 0, 175)
-				imageLabel.Position = UDim2.new(0, 0, 0, 0)
-				local imageUrl = "http://www.roblox.com/asset/?id=18197067413"
-				imageLabel.Image = imageUrl
-				imageLabel.BackgroundTransparency = 1  -- Make background transparent
-				imageLabel.Parent = gui
-			until not VanilaLogo.Enabled
 		end
 	end,
 })																				
