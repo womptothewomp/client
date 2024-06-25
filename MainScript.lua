@@ -575,12 +575,11 @@ library.NewWindow = function(name)
 end
 
 Combat = library.NewWindow("Combat")
-Player = library.NewWindow("Player")
 Motion = library.NewWindow("Motion")
 Visuals = library.NewWindow("Visuals")
+Player = library.NewWindow("Player")
 Misc = library.NewWindow("Misc")
 Exploit = library.NewWindow("Exploit")
-Legit = library.NewWindow("Legit")
 
 local weaponMeta = loadstring(game:HttpGet("https://raw.githubusercontent.com/VelocityCheats/venus-client-for-roblox/main/Bedwars/weaponMeta", true))()
 local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/VelocityCheats/venus-client-for-roblox/main/Bedwars/Functions.lua", true))()
