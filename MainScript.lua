@@ -1443,40 +1443,44 @@ Spider = Motion.NewButton({
 		end
 	end,
 })																				
-
-local JumpCirclesCon
-JumpPlates = Visuals.NewButton({
-	Name = "JumpPlates",
+ESP = Visuals.NewButton({
+	Name = "ESP",
 	Function = function(callback)
 		if callback then
-			task.spawn(function()
-				repeat task.wait()
-					local state = Humanoid:GetState()
-
-					if state == Enum.HumanoidStateType.Jumping then
-						local plate = Instance.new("Part",workspace)
-						plate.Anchored = true
-						plate.CanCollide = false
-						plate.CastShadow = false
-						plate.Size = Vector3.new(0,0,0)
-						plate.CFrame = PrimaryPart.CFrame
-						plate.Material = Enum.Material.Neon
-						plate.Color = library.Color
-
-						game.TweenService:Create(plate,TweenInfo.new(0.6),{
-							Size = Vector3.new(4,1,4),
-							CFrame = plate.CFrame - Vector3.new(0,2,0),
-							Transparency = 1
-						}):Play()
-
-						game.Debris:AddItem(plate,0.6)
+			repeat task.wait()
+				if ESPMode.Option == "glow" then
+					local Players = game:GetService("Players")
+					local function highlightPlayer(player)
+  					local highlight = Instance.new("Highlight")
+  					highlight.Parent = player.Character
+ 					highlight.FillColor = Color3.fromRGB(255, 0, 0)
 					end
-				until not JumpPlates.Enabled
-			end)
+
+					for _, player in ipairs(Players:GetPlayers()) do
+  						highlightPlayer(player)
+					end																
+				end
+				if ESPMode.Option == "outline" then
+					local Players = game:GetService("Players")
+					local function highlightPlayer(player)
+  					local highlight = Instance.new("Highlight")
+  					highlight.Parent = player.Character
+  					highlight.OutlineColor = Color3.fromRGB(0, 0, 255)
+					end
+
+					for _, player in ipairs(Players:GetPlayers()) do
+  						highlightPlayer(player)
+					end																	
+				end																						
+			until not ESP.Enabled
 		end
 	end,
 })
-
+ESPMode = ESPMode.NewPicker({
+	Name = "Mode",
+	Options = {"glow", "outline"}
+})
+																					
 local lastpos
 Antifall = Misc.NewButton({
 	Name = "Antifall",
