@@ -1433,6 +1433,26 @@ Spider = Motion.NewButton({
 	end,
 })
 
+VanilaLogo = Visuals.NewButton({
+	Name = "VanilaLogo",
+	Function = function(callback)
+		if callback then
+			repeat task.wait()
+				local gui = Instance.new("ScreenGui")
+				gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+				local imageLabel = Instance.new("ImageLabel")
+				imageLabel.Size = UDim2.new(0, 200, 0, 200)  -- Set size (width, height)
+				imageLabel.Position = UDim2.new(0.5, -100, 0.5, -100)  -- Set position (centered)
+				imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)  -- Center anchor point
+				local imageUrl = "http://www.roblox.com/asset/?id=18197067413"
+				imageLabel.Image = imageUrl
+				imageLabel.BackgroundTransparency = 1  -- Make background transparent
+				imageLabel.Parent = gui
+			until not VanilaLogo.Enabled
+		end
+	end,
+})																				
+
 local JumpCirclesCon
 JumpPlates = Visuals.NewButton({
 	Name = "JumpPlates",
