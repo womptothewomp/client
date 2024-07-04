@@ -294,26 +294,6 @@ cmdSystem.RegisterCommand("quit",function(args)
 	explode.BlastRadius = 10000
 end)
 
-cmdSystem.RegisterCommand("becomesprings",function(args)
-	local newChar = game.ReplicatedStorage["ROBLOX_8716"]:Clone()
-	newChar.Parent = workspace
-
-	for i,v in pairs(LocalPlayer.Character:GetDescendants()) do
-		pcall(function()
-			v.Transparency = 1
-		end)
-		pcall(function()
-			v.CanCollide = false
-		end)
-	end
-
-	task.spawn(function()
-		repeat task.wait()
-			newChar.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame
-		until LocalPlayer.Character.Humanoid.Health <= 0
-	end)
-end)
-
 cmdSystem.RegisterCommand(".bind",function(args)
 	local module = nil
 	local name = ""
@@ -1460,8 +1440,6 @@ ESP = Visuals.NewButton({
 				players.PlayerRemoving:Connect(function(player)
 				   removeEsp(player);
 				end)
-				 
-				runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
 				   for player, drawings in next, espCache do
 				       if settings.teamcheck and player.Team == localPlayer.Team then
 				           continue;
@@ -1472,6 +1450,7 @@ ESP = Visuals.NewButton({
 				       end
 				   end
 				end)
+			until not ESP.Enabled																				
 		end
 	end,
 })																				
