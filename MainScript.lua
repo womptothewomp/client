@@ -1308,7 +1308,7 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "vanila_slow" then
-					PrimaryPart.CFrame += (0.04 * dir)																	
+					PrimaryPart.CFrame += (0.03 * dir)																	
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
@@ -1318,7 +1318,7 @@ Speed = Motion.NewButton({
 				if SpeedMode.Option == "bhop" then
 					Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 					Humanoid.WalkSpeed = 23
-					task.wait(1)																
+					task.wait(0.5)																
 				end																
 				task.wait()
 			until not Speed.Enabled
@@ -2224,14 +2224,7 @@ local Disabler = Exploit.NewButton({
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
                             humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                        elseif DisablerMethod.Option == "Scythe_Slow" then
-                            local args = {
-                            [1] = {
-                                ["direction"] = Vector3.new(0.56722307801246643, -1.869954627306447e-09, -0.9841394782066345)
-                            }
-                        }
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-			elseif DisablerMethod.Option == "Scythe_Fast" then
+			elseif DisablerMethod.Option == "Scythe_Semi" then
                             local args = {
                             [1] = {
                                 ["direction"] = Vector3.new(0.16722307801246643, -1.469954627306447e-09, -0.5841394782066345)
@@ -2254,7 +2247,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"SemiFloat1", "SemiFloat2", "Scythe_Slow", "Scythe_Fast"}
+    Options = {"SemiFloat1", "SemiFloat2", "Scythe_Semi"}
 })
 
 local TrollageConnection
