@@ -2227,7 +2227,7 @@ local Disabler = Exploit.NewButton({
 			elseif DisablerMethod.Option == "Scythe_Semi" then
                             local args = {
                             [1] = {
-                                ["direction"] = Vector3.new(0.16722307801246643, -1.469954627306447e-09, -0.5841394782066345)
+                                ["direction"] = Vector3.new(0.36722307801246643, -1.669954627306447e-09, -0.7841394782066345)
                             }
                         }
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))																																											
