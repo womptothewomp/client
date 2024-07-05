@@ -1302,11 +1302,6 @@ Speed = Motion.NewButton({
 				local velo = PrimaryPart.Velocity
 				local speed = 0.3
 
-				if SpeedMode.Option == "Bedwars" then
-					speed = Character:GetAttribute("SpeedBoost") and 0.1 or 0.017
-					PrimaryPart.CFrame += (speed * dir)
-				end
-
 				if SpeedMode.Option == "vanila" then
 					speed = 0.06
 					PrimaryPart.CFrame += (speed * dir)
@@ -1315,10 +1310,6 @@ Speed = Motion.NewButton({
 
 				if SpeedMode.Option == "WalkSpeed" then
 					Humanoid.WalkSpeed = 23																	
-				end
-
-				if SpeedMode.Option == "WalkSpeed_fast" then
-					Humanoid.WalkSpeed = 24																	
 				end
 
 				if SpeedMode.Option == "pulse_WalkSpeed" then
@@ -1337,7 +1328,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Bedwars", "vanila", "WalkSpeed", "WalkSpeed_fast", "pulse_WalkSpeed", "pulse_CFrame"}
+	Options = {"vanila", "WalkSpeed", "pulse_WalkSpeed", "pulse_CFrame"}
 })
 
 NoSlowDown = Motion.NewButton({
