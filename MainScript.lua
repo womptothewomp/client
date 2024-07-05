@@ -294,26 +294,6 @@ cmdSystem.RegisterCommand("quit",function(args)
 	explode.BlastRadius = 10000
 end)
 
-cmdSystem.RegisterCommand("becomesprings",function(args)
-	local newChar = game.ReplicatedStorage["ROBLOX_8716"]:Clone()
-	newChar.Parent = workspace
-
-	for i,v in pairs(LocalPlayer.Character:GetDescendants()) do
-		pcall(function()
-			v.Transparency = 1
-		end)
-		pcall(function()
-			v.CanCollide = false
-		end)
-	end
-
-	task.spawn(function()
-		repeat task.wait()
-			newChar.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame
-		until LocalPlayer.Character.Humanoid.Health <= 0
-	end)
-end)
-
 cmdSystem.RegisterCommand(".bind",function(args)
 	local module = nil
 	local name = ""
@@ -915,37 +895,7 @@ for i,v in pairs(assetTable) do
 	table.insert(stylesofskybox, i)
 end
 
-SelfESP = Visuals.NewButton({
-	Name = "SelfESP",
-	Function = function(callback)
-		if callback then
-			local e = Instance.new("BillboardGui",LocalPlayer.Character.PrimaryPart)
-			local image = Instance.new("ImageLabel",e)
-			image.Size = UDim2.fromScale(10,10)
-			image.Position = UDim2.fromScale(-3,-4)
-
-			image.BackgroundTransparency = 1
-			e.Size = UDim2.fromScale(0.5,0.5)
-			e.AlwaysOnTop = true
-			e.Name = "nein"
-
-			task.spawn(function()
-				repeat task.wait()
-					image.Image = assetTable[SelfESPStyle.Option]
-				until not SelfESP.Enabled
-			end)
-
-		else
-			pcall(function()
-				LocalPlayer.Character.PrimaryPart.nein:Destroy()
-			end)
-		end
-	end,
-})
-SelfESPStyle = SelfESP.NewPicker({
-	Name = "Style",
-	Options = stylesofskybox
-})
+		
 
 ImageESP = Visuals.NewButton({
 	Name = "ImageESP",
@@ -1387,7 +1337,124 @@ NoSlowDown = Motion.NewButton({
 			until not NoSlowDown.Enabled
 		end
 	end,
-})																	
+})	
+
+function IsAlive(Player)
+	Player = Player or LocalPlayer
+
+	if not Player.Character then return false end
+	if not Player.Character:FindFirstChild("Humanoid") then return false end
+	if Player.Character:GetAttribute("Health") <= 0 then return false end
+	if not Player.Character.PrimaryPart then return false end	
+
+	return true
+end	
+
+local function GetServerPosition(Position)
+	local X = math.round(Position.X / 3)
+	local Y = math.round(Position.Y / 3)
+	local Z = math.round(Position.Z / 3)
+
+	return Vector3.new(X, Y, Z)
+end
+
+function FindNearestBed(MaxDistance)
+	local MaxDistance = MaxDistance or math.huge
+	local NearestBed = nil
+
+	for i, v in next, CollectionService:GetTagged("bed")do
+		if v:FindFirstChild("Blanket").BrickColor ~= LocalPlayer.Team.TeamColor then			
+			if v:GetAttribute("BedShieldEndTime") then 				
+				if v:GetAttribute("BedShieldEndTime") < Workspace:GetServerTimeNow() then
+					local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+					if Distance < MaxDistance then
+						MaxDistance = Distance
+						NearestBed = v
+					end
+				end
+			end
+
+			if not v:GetAttribute("BedShieldEndTime") then
+				local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+				if Distance < MaxDistance then
+					MaxDistance = Distance
+					NearestBed = v
+				end
+			end
+		end
+	end
+
+	return NearestBed
+end
+
+local DamageBlockRemote = game.ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@easy-games"):WaitForChild("block-engine"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DamageBlock")
+local NearestBedFound = false
+local CanSeeNearestBed = false
+
+local function Nuker(NearestBed)
+	task.spawn(function()
+		if NearestBed then
+			NearestBedFound = true
+
+			local NukerRaycastParameters = RaycastParams.new()
+			local TargetBlock = nil
+
+			NukerRaycastParameters.FilterType = Enum.RaycastFilterType.Exclude
+			NukerRaycastParameters.FilterDescendantsInstances = {LocalPlayer.Character}
+			NukerRaycastParameters.IgnoreWater = true
+
+			local RaycastResult = game.Workspace:Raycast(NearestBed.Position + Vector3.new(0, 30, 0), Vector3.new(0, -35, 0), NukerRaycastParameters)
+
+			task.spawn(function()
+				if RaycastResult then
+					if RaycastResult.Instance then
+						TargetBlock = RaycastResult.Instance
+					end
+
+					if not RaycastResult.Instance then
+						TargetBlock = NearestBed
+					end				
+
+					DamageBlockRemote:InvokeServer({
+						blockRef = {
+							blockPosition = GetServerPosition(TargetBlock.Position)
+						},
+
+						hitPosition = GetServerPosition(TargetBlock.Position),
+						hitNormal = GetServerPosition(TargetBlock.Position)
+					})
+				end
+			end)			
+
+			task.spawn(function()
+				local _, Value = CurrentCamera:WorldToScreenPoint(NearestBed.Position)
+
+				CanSeeNearestBed = Value
+			end)
+		end
+	end)
+end
+
+BedNuker = Motion.NewButton({
+    Name = "BedNuker",
+    Function = function(callback)
+        if callback then
+            task.spawn(function()
+                repeat task.wait()
+                    if IsAlive(LocalPlayer) then
+                        local NearestBed = FindNearestBed(30)
+
+                        if NearestBed then
+                            Nuker(NearestBed)
+                        end
+                    end
+                until not BedNuker.Enabled
+            end)
+        end
+    end
+})																
 
 Phase = Player.NewButton({
 	Name = "Phase",
