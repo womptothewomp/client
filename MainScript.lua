@@ -1339,122 +1339,7 @@ NoSlowDown = Motion.NewButton({
 	end,
 })	
 
-function IsAlive(Player)
-	Player = Player or LocalPlayer
-
-	if not Player.Character then return false end
-	if not Player.Character:FindFirstChild("Humanoid") then return false end
-	if Player.Character:GetAttribute("Health") <= 0 then return false end
-	if not Player.Character.PrimaryPart then return false end	
-
-	return true
-end	
-
-local function GetServerPosition(Position)
-	local X = math.round(Position.X / 3)
-	local Y = math.round(Position.Y / 3)
-	local Z = math.round(Position.Z / 3)
-
-	return Vector3.new(X, Y, Z)
-end
-
-function FindNearestBed(MaxDistance)
-	local MaxDistance = MaxDistance or math.huge
-	local NearestBed = nil
-
-	for i, v in next, CollectionService:GetTagged("bed")do
-		if v:FindFirstChild("Blanket").BrickColor ~= LocalPlayer.Team.TeamColor then			
-			if v:GetAttribute("BedShieldEndTime") then 				
-				if v:GetAttribute("BedShieldEndTime") < Workspace:GetServerTimeNow() then
-					local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
-
-					if Distance < MaxDistance then
-						MaxDistance = Distance
-						NearestBed = v
-					end
-				end
-			end
-
-			if not v:GetAttribute("BedShieldEndTime") then
-				local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
-
-				if Distance < MaxDistance then
-					MaxDistance = Distance
-					NearestBed = v
-				end
-			end
-		end
-	end
-
-	return NearestBed
-end
-
-local DamageBlockRemote = game.ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@easy-games"):WaitForChild("block-engine"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DamageBlock")
-local NearestBedFound = false
-local CanSeeNearestBed = false
-
-local function Nuker(NearestBed)
-	task.spawn(function()
-		if NearestBed then
-			NearestBedFound = true
-
-			local NukerRaycastParameters = RaycastParams.new()
-			local TargetBlock = nil
-
-			NukerRaycastParameters.FilterType = Enum.RaycastFilterType.Exclude
-			NukerRaycastParameters.FilterDescendantsInstances = {LocalPlayer.Character}
-			NukerRaycastParameters.IgnoreWater = true
-
-			local RaycastResult = game.Workspace:Raycast(NearestBed.Position + Vector3.new(0, 30, 0), Vector3.new(0, -35, 0), NukerRaycastParameters)
-
-			task.spawn(function()
-				if RaycastResult then
-					if RaycastResult.Instance then
-						TargetBlock = RaycastResult.Instance
-					end
-
-					if not RaycastResult.Instance then
-						TargetBlock = NearestBed
-					end				
-
-					DamageBlockRemote:InvokeServer({
-						blockRef = {
-							blockPosition = GetServerPosition(TargetBlock.Position)
-						},
-
-						hitPosition = GetServerPosition(TargetBlock.Position),
-						hitNormal = GetServerPosition(TargetBlock.Position)
-					})
-				end
-			end)			
-
-			task.spawn(function()
-				local _, Value = CurrentCamera:WorldToScreenPoint(NearestBed.Position)
-
-				CanSeeNearestBed = Value
-			end)
-		end
-	end)
-end
-
-BedNuker = Motion.NewButton({
-    Name = "BedNuker",
-    Function = function(callback)
-        if callback then
-            task.spawn(function()
-                repeat task.wait()
-                    if IsAlive(LocalPlayer) then
-                        local NearestBed = FindNearestBed(30)
-
-                        if NearestBed then
-                            Nuker(NearestBed)
-                        end
-                    end
-                until not BedNuker.Enabled
-            end)
-        end
-    end
-})																
+																
 
 Phase = Player.NewButton({
 	Name = "Phase",
@@ -2338,7 +2223,7 @@ local Disabler = Exploit.NewButton({
                         elseif DisablerMethod.Option == "Scythe" then
                             local args = {
                             [1] = {
-                                ["direction"] = Vector3.new(0.36722307801246643, -1.669954627306447e-09, -0.7841394782066345)
+                                ["direction"] = Vector3.new(0.26722307801246643, -1.569954627306447e-09, -0.6841394782066345)
                             }
                         }
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
@@ -2358,7 +2243,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"SemiFloat1", "SemiFloat2", "Scythe2"}
+    Options = {"SemiFloat1", "SemiFloat2", "Scythe"}
 })
 
 local TrollageConnection
