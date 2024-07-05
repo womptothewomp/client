@@ -2220,13 +2220,20 @@ local Disabler = Exploit.NewButton({
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
                             humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                        elseif DisablerMethod.Option == "Scythe" then
+                        elseif DisablerMethod.Option == "Scythe_Slow" then
                             local args = {
                             [1] = {
-                                ["direction"] = Vector3.new(0.26722307801246643, -1.569954627306447e-09, -0.6841394782066345)
+                                ["direction"] = Vector3.new(0.56722307801246643, -1.869954627306447e-09, -0.9841394782066345)
                             }
                         }
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+			elseif DisablerMethod.Option == "Scythe_Fast" then
+                            local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.16722307801246643, -1.469954627306447e-09, -0.5841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))																																											
                         end
                     end
                 end)
@@ -2243,7 +2250,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"SemiFloat1", "SemiFloat2", "Scythe"}
+    Options = {"SemiFloat1", "SemiFloat2", "Scythe_Slow", "Scythe_Fast"}
 })
 
 local TrollageConnection
