@@ -1308,7 +1308,7 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "vanila_slow" then
-					PrimaryPart.CFrame += (0.05 * dir)																	
+					PrimaryPart.CFrame += (0.04 * dir)																	
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
@@ -1317,7 +1317,8 @@ Speed = Motion.NewButton({
 
 				if SpeedMode.Option == "bhop" then
 					Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-					Humanoid.WalkSpeed = 23																
+					Humanoid.WalkSpeed = 23
+					task.wait(1)																
 				end																
 				task.wait()
 			until not Speed.Enabled
