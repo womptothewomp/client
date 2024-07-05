@@ -1318,14 +1318,14 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
-					Humanoid.WalkSpeed = 26																	
+					Humanoid.WalkSpeed = 24																	
 				end
 
-				if SpeedMode.Option == "WalkSpeed" then
-					Humanoid.WalkSpeed = 23																	
+				if SpeedMode.Option == "pulse" then
+					PrimaryPart.CFrame += (0.4 * dir)																	
 					task.wait(0.4)																
-					Humanoid.WalkSpeed = 26
-					task.wait(0.4)																
+					PrimaryPart.CFrame += (0.65 * dir)
+					task.wait(0.3)																
 				end																
 				task.wait()
 			until not Speed.Enabled
