@@ -716,7 +716,7 @@ local auraConnection
 local targetInfo = Instance.new("TextLabel",ScreenGui)
 Killaura = Combat.NewButton({
 	Name = "aura",
-	Keybind = Enum.KeyCode.R,
+	Keybind = Enum.KeyCode.X,
 	Function = function(callback)
 		if callback then
             auraConnection = RunService.Heartbeat:Connect(function()
@@ -1182,7 +1182,7 @@ ArrayRounded = HUD.NewToggle({
 local flycon
 Fly = Motion.NewButton({
 	Name = "Fly",
-	Keybind = Enum.KeyCode.V,
+	Keybind = Enum.KeyCode.R,
 	Function = function(callback)
 		if callback then
 			if flyMode.Option == "vanila" then
@@ -1294,7 +1294,6 @@ local speedcon
 local tickxd = 0
 Speed = Motion.NewButton({
 	Name = "Speed",
-	Keybind = Enum.KeyCode.f,															
 	Function = function(callback)
 		if callback then
 			repeat
@@ -1710,7 +1709,6 @@ end
 local scaffoldRun
 Scaffold = Misc.NewButton({
 	["Name"] = "Scaffold",
-	Keybind = Enum.KeyCode.X,																											
 	["Function"] = function(callback)
 		if callback then
 			scaffoldRun = RunService.Heartbeat:Connect(function()
