@@ -1317,7 +1317,7 @@ Speed = Motion.NewButton({
 					Humanoid.WalkSpeed = 23																	
 				end
 
-				if SpeedMode.Option == "WalkSpeed" then
+				if SpeedMode.Option == "WalkSpeed_fast" then
 					Humanoid.WalkSpeed = 24																	
 				end
 
@@ -1337,7 +1337,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Bedwars", "vanila", "WalkSpeed", "WalkSpeed_fast", "pulse"}
+	Options = {"Bedwars", "vanila", "WalkSpeed", "WalkSpeed_fast", "pulse_WalkSpeed", "pulse_CFrame"}
 })
 
 NoSlowDown = Motion.NewButton({
