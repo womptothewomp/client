@@ -2269,13 +2269,12 @@ local Disabler = Exploit.NewButton({
                             humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
                         elseif DisablerMethod.Option == "Scythe" then
-                            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 26
                             local args = {
-                                [1] = {
-                                    ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
-                                }
+                            [1] = {
+                                ["direction"] = Vector3.new(0.36722307801246643, -1.669954627306447e-09, -0.7841394782066345)
                             }
-                            game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
                         end
                     end
                 end)
@@ -2292,7 +2291,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"SemiFloat1", "SemiFloat2", "Scythe"}
+    Options = {"SemiFloat1", "SemiFloat2", "Scythe2"}
 })
 
 local TrollageConnection
