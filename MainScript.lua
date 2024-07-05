@@ -1389,6 +1389,22 @@ NoSlowDown = Motion.NewButton({
 	end,
 })
 
+ScytheDisabler = Motion.NewButton({
+	Name = "ScytheDisabler",
+	Function = function(callback)
+		if callback then
+			repeat task.wait()
+				local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.36722307801246643, -1.669954627306447e-09, -0.7841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+			until not ScytheDisabler.Enabled
+		end
+	end,
+})																	
+
 Phase = Player.NewButton({
 	Name = "Phase",
 	Function = function(callback)
