@@ -1308,7 +1308,7 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "heatseeker" then
-					PrimaryPart.CFrame += ((math.random(1, 2) == 1 and 0.02 or 0.06) * dir)																
+					PrimaryPart.CFrame += ((math.random(1, 2) == 1 and 0.01 or 0.05) * dir)																
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
