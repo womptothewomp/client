@@ -1307,8 +1307,11 @@ Speed = Motion.NewButton({
 					
 				end
 
-				if SpeedMode.Option == "vanila_slow" then
-					PrimaryPart.CFrame += (0.03 * dir)																	
+				if SpeedMode.Option == "heatseeker" then
+					task.wait(0.5)																
+					PrimaryPart.CFrame += (0.06 * dir)
+					task.wait(0.8)
+					PrimaryPart.CFrame += (0.03 * dir)																
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
