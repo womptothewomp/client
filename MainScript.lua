@@ -1321,8 +1321,12 @@ Speed = Motion.NewButton({
 					Humanoid.WalkSpeed = 24																	
 				end
 
-				if SpeedMode.Option == "pulse" then
-					game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = math.random(150, 2000)																
+				if SpeedMode.Option == "pulse_WalkSpeed" then
+					game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = math.random(20, 23)																
+				end
+
+				if SpeedMode.Option == "pulse_CFrame" then
+					PrimaryPart.CFrame += (math.random(0.4, 0.6) * dir)																
 				end																
 				task.wait()
 			until not Speed.Enabled
