@@ -1308,10 +1308,7 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "heatseeker" then
-					task.wait(0.5)																
-					PrimaryPart.CFrame += (0.06 * dir)
-					task.wait(0.8)
-					PrimaryPart.CFrame += (0.03 * dir)																
+					PrimaryPart.CFrame += ((math.random(1, 2) == 1 and 0.03 or 0.06) * dir)																
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
@@ -1332,7 +1329,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"vanila", "vanila_slow", "WalkSpeed", "bhop"}
+	Options = {"vanila", "heatseeker", "WalkSpeed", "bhop"}
 })
 
 NoSlowDown = Motion.NewButton({
