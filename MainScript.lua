@@ -1303,21 +1303,21 @@ Speed = Motion.NewButton({
 				local speed = 0.3
 
 				if SpeedMode.Option == "vanila" then
-					speed = 0.06
-					PrimaryPart.CFrame += (speed * dir)
+					PrimaryPart.CFrame += (0.06 * dir)
 					
+				end
+
+				if SpeedMode.Option == "vanila_slow" then
+					PrimaryPart.CFrame += (0.05 * dir)																	
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
 					Humanoid.WalkSpeed = 23																	
 				end
 
-				if SpeedMode.Option == "pulse_WalkSpeed" then
-					game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = math.random(23, 25)																
-				end
-
-				if SpeedMode.Option == "pulse_CFrame" then
-					PrimaryPart.CFrame += (math.random(0.5, 0.7) * dir)																
+				if SpeedMode.Option == "bhop" then
+					Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+					Humanoid.WalkSpeed = 23																
 				end																
 				task.wait()
 			until not Speed.Enabled
@@ -1328,7 +1328,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"vanila", "WalkSpeed", "pulse_WalkSpeed", "pulse_CFrame"}
+	Options = {"vanila", "vanila_slow", "WalkSpeed", "bhop"}
 })
 
 NoSlowDown = Motion.NewButton({
