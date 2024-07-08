@@ -4,7 +4,7 @@ local library = {}
 local spawnConnections = {}
 local utils = {}
 
-local Vanila_user = getgenv().Vanila_user or "Developer"
+local Vanila_user = getgenv().Vanila_user or "User"
 local canLoadVanila = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local hurttime = 0
 local VanilaRelease = "1"
