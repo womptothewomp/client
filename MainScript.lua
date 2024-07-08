@@ -1308,7 +1308,9 @@ Speed = Motion.NewButton({
 				end
 
 				if SpeedMode.Option == "heatseeker" then
-					PrimaryPart.CFrame += ((math.random(1, 2) == 1 and 0.01 or 0.05) * dir)																
+					game.Players.LocalPlayer.Character.Humanoid.Walkspeed = 69
+				        wait(0.032)
+				        game.Players.LocalPlayer.Character.Humanoid.Walkspeed = 20															
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
