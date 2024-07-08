@@ -1309,8 +1309,9 @@ Speed = Motion.NewButton({
 
 				if SpeedMode.Option == "heatseeker" then
 					Humanoid.WalkSpeed = 25
-				        wait(0.032)
-				        Humanoid.WalkSpeed = 20															
+					task.wait(0.3)																
+				        Humanoid.WalkSpeed = 20
+					task.wait(1)																	
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
