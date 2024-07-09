@@ -1332,7 +1332,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"vanila", "heatseeker", "WalkSpeed", "bhop"}
+	Options = {"vanila", "pulse", "WalkSpeed", "bhop"}
 })
 
 NoSlowDown = Motion.NewButton({
@@ -2250,7 +2250,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"SemiFloat1", "SemiFloat2", "Scythe_Semi"}
+    Options = {"SemiFloat1", "SemiFloat2", "heatseeker_Semi"}
 })
 
 local TrollageConnection
