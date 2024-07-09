@@ -1309,9 +1309,9 @@ Speed = Motion.NewButton({
 
 				if SpeedMode.Option == "pulse" then
 					Humanoid.WalkSpeed = 100
-					task.wait(0.06)																
+					task.wait(0.08)																
 				        Humanoid.WalkSpeed = 20
-					task.wait(1)																	
+					task.wait(1.5)																	
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
