@@ -1307,9 +1307,9 @@ Speed = Motion.NewButton({
 					
 				end
 
-				if SpeedMode.Option == "heatseeker" then
-					Humanoid.WalkSpeed = 500
-					task.wait(0.032)																
+				if SpeedMode.Option == "pulse" then
+					Humanoid.WalkSpeed = 100
+					task.wait(0.08)																
 				        Humanoid.WalkSpeed = 20
 					task.wait(1)																	
 				end
@@ -2227,7 +2227,7 @@ local Disabler = Exploit.NewButton({
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
                             humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
-			elseif DisablerMethod.Option == "Scythe_Semi" then
+			elseif DisablerMethod.Option == "heatseeker_Semi" then
                             local args = {
                             [1] = {
                                 ["direction"] = Vector3.new(0.36722307801246643, -1.669954627306447e-09, -0.7841394782066345)
