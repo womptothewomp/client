@@ -294,26 +294,6 @@ cmdSystem.RegisterCommand("quit",function(args)
 	explode.BlastRadius = 10000
 end)
 
-cmdSystem.RegisterCommand("becomesprings",function(args)
-	local newChar = game.ReplicatedStorage["ROBLOX_8716"]:Clone()
-	newChar.Parent = workspace
-
-	for i,v in pairs(LocalPlayer.Character:GetDescendants()) do
-		pcall(function()
-			v.Transparency = 1
-		end)
-		pcall(function()
-			v.CanCollide = false
-		end)
-	end
-
-	task.spawn(function()
-		repeat task.wait()
-			newChar.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame
-		until LocalPlayer.Character.Humanoid.Health <= 0
-	end)
-end)
-
 cmdSystem.RegisterCommand(".bind",function(args)
 	local module = nil
 	local name = ""
@@ -915,37 +895,7 @@ for i,v in pairs(assetTable) do
 	table.insert(stylesofskybox, i)
 end
 
-SelfESP = Visuals.NewButton({
-	Name = "SelfESP",
-	Function = function(callback)
-		if callback then
-			local e = Instance.new("BillboardGui",LocalPlayer.Character.PrimaryPart)
-			local image = Instance.new("ImageLabel",e)
-			image.Size = UDim2.fromScale(10,10)
-			image.Position = UDim2.fromScale(-3,-4)
-
-			image.BackgroundTransparency = 1
-			e.Size = UDim2.fromScale(0.5,0.5)
-			e.AlwaysOnTop = true
-			e.Name = "nein"
-
-			task.spawn(function()
-				repeat task.wait()
-					image.Image = assetTable[SelfESPStyle.Option]
-				until not SelfESP.Enabled
-			end)
-
-		else
-			pcall(function()
-				LocalPlayer.Character.PrimaryPart.nein:Destroy()
-			end)
-		end
-	end,
-})
-SelfESPStyle = SelfESP.NewPicker({
-	Name = "Style",
-	Options = stylesofskybox
-})
+		
 
 ImageESP = Visuals.NewButton({
 	Name = "ImageESP",
@@ -1352,20 +1302,27 @@ Speed = Motion.NewButton({
 				local velo = PrimaryPart.Velocity
 				local speed = 0.3
 
-				if SpeedMode.Option == "Bedwars" then
-					speed = Character:GetAttribute("SpeedBoost") and 0.1 or 0.017
-					PrimaryPart.CFrame += (speed * dir)
+				if SpeedMode.Option == "vanila" then
+					PrimaryPart.CFrame += (0.06 * dir)
+					
 				end
 
-				if SpeedMode.Option == "vanila" then
-					speed = 0.06
-					PrimaryPart.CFrame += (speed * dir)
-					
+				if SpeedMode.Option == "pulse" then
+					Humanoid.WalkSpeed = 100
+					task.wait(0.06)																
+				        Humanoid.WalkSpeed = 20
+					task.wait(1.5)																	
 				end
 
 				if SpeedMode.Option == "WalkSpeed" then
 					Humanoid.WalkSpeed = 23																	
-				end																	
+				end
+
+				if SpeedMode.Option == "bhop" then
+					Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+					Humanoid.WalkSpeed = 23
+					task.wait(0.5)																
+				end																
 				task.wait()
 			until not Speed.Enabled
 		else
@@ -1375,7 +1332,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Bedwars", "vanila", "WalkSpeed"}
+	Options = {"vanila", "pulse", "WalkSpeed", "bhop"}
 })
 
 NoSlowDown = Motion.NewButton({
@@ -1387,7 +1344,9 @@ NoSlowDown = Motion.NewButton({
 			until not NoSlowDown.Enabled
 		end
 	end,
-})
+})	
+
+																
 
 Phase = Player.NewButton({
 	Name = "Phase",
@@ -2268,6 +2227,13 @@ local Disabler = Exploit.NewButton({
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
                             humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
                             humanoid:ChangeState(Enum.HumanoidStateType.Running)
+			elseif DisablerMethod.Option == "heatseeker_Semi" then
+                            local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.36722307801246643, -1.669954627306447e-09, -0.7841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))																																											
                         end
                     end
                 end)
@@ -2284,7 +2250,7 @@ local Disabler = Exploit.NewButton({
 })
 DisablerMethod = Disabler.NewPicker({
     Name = "Method",
-    Options = {"SemiFloat1", "SemiFloat2"}
+    Options = {"SemiFloat1", "SemiFloat2", "heatseeker_Semi"}
 })
 
 local TrollageConnection
