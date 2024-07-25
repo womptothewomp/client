@@ -2398,6 +2398,67 @@ DisablerMethod = Disabler.NewPicker({
     Options = {"SemiFloat1", "SemiFloat2", "heatseeker_Semi"}
 })
 
+ScytheDisabler = Exploit.NewButton({
+    Name = "Disabler2",
+    Function = function(callback)
+        if callback then
+            local Bypassmode = Bypassmode.Value
+            task.spawn(function()
+                repeat task.wait()
+                    if Bypassmode == "Heatseeker" then
+                        local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 40
+
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 18.5
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                    elseif Bypassmode == "CFrame" then
+                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 28
+                        local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                    end
+                until not ScytheDisabler.Enabled
+                resetSpeed()
+            end)
+        end
+    end,
+})
+Bypassmode = ScytheDisabler.NewPicker({
+	Name = "Mode",
+	Options = {"Heatseeker", "CFrame"}
+})																																									
+
 local TrollageConnection
 RemoteTrollage = Exploit.NewButton({
 	Name = "RemoteTrollage",
