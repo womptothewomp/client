@@ -1340,7 +1340,7 @@ NoSlowDown = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			repeat task.wait()
-				Humanoid.WalkSpeed = 20
+				Humanoid.WalkSpeed = 23
 			until not NoSlowDown.Enabled
 		end
 	end,
