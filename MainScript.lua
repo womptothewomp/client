@@ -1338,7 +1338,7 @@ Speed = Motion.NewButton({
 				local speed = 0.3
 
 				if SpeedMode.Option == "vanila" then
-					PrimaryPart.CFrame += (0.06 * dir)
+					PrimaryPart.CFrame += (0.05 * dir)
 					
 				end
 
@@ -1380,6 +1380,55 @@ NoSlowDown = Motion.NewButton({
 		end
 	end,
 })
+
+function IsAlive(Player)
+	Player = Player or LocalPlayer
+
+	if not Player.Character then return false end
+	if not Player.Character:FindFirstChild("Humanoid") then return false end
+	if Player.Character:GetAttribute("Health") <= 0 then return false end
+	if not Player.Character.PrimaryPart then return false end	
+
+	return true
+end	
+
+local function GetServerPosition(Position)
+	local X = math.round(Position.X / 3)
+	local Y = math.round(Position.Y / 3)
+	local Z = math.round(Position.Z / 3)
+
+	return Vector3.new(X, Y, Z)
+end
+
+
+local function FindNearestNpc(MaxDistance)
+	local MaxDistance = MaxDistance or math.huge
+	local NearestNpc = nil
+	task.spawn(function()
+		for i, v in next, CollectionService:GetTagged("BedwarsTeamUpgrader") do
+			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+			if Distance < MaxDistance then
+				MaxDistance = Distance
+				NearestNpc = v
+			end
+		end
+	end)
+
+	task.spawn(function()
+		for i, v in next, CollectionService:GetTagged("BedwarsItemShop") do
+			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+			if Distance < MaxDistance then
+				MaxDistance = Distance
+				NearestNpc = v		
+			end
+		end
+	end)
+
+	return NearestNpc
+end
+
 
 function FindNearestBed(MaxDistance)
 	local MaxDistance = MaxDistance or math.huge
