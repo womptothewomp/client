@@ -1379,7 +1379,104 @@ NoSlowDown = Motion.NewButton({
 			until not NoSlowDown.Enabled
 		end
 	end,
-})	
+})
+
+function FindNearestBed(MaxDistance)
+	local MaxDistance = MaxDistance or math.huge
+	local NearestBed = nil
+
+	for i, v in next, CollectionService:GetTagged("bed") do
+		if v:FindFirstChild("Blanket").BrickColor ~= LocalPlayer.Team.TeamColor then
+			if v:GetAttribute("BedShieldEndTime") then 				
+				if v:GetAttribute("BedShieldEndTime") < Workspace:GetServerTimeNow() then
+					local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+					if Distance < MaxDistance then
+						MaxDistance = Distance
+						NearestBed = v
+					end
+				end
+			end
+
+			if not v:GetAttribute("BedShieldEndTime") then
+				local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+				if Distance < MaxDistance then
+					MaxDistance = Distance
+					NearestBed = v
+				end
+			end
+		end
+	end
+
+	return NearestBed
+end
+
+local DamageBlockRemote = game.ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@easy-games"):WaitForChild("block-engine"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DamageBlock")
+local NearestBedFound = false
+local CanSeeNearestBed = false
+
+local function Nuker(NearestBed)
+	task.spawn(function()
+		if NearestBed then
+			NearestBedFound = true
+
+			local NukerRaycastParameters = RaycastParams.new()
+			local TargetBlock = nil
+
+			NukerRaycastParameters.FilterType = Enum.RaycastFilterType.Exclude
+			NukerRaycastParameters.FilterDescendantsInstances = {LocalPlayer.Character}
+			NukerRaycastParameters.IgnoreWater = true
+
+			local RaycastResult = game.Workspace:Raycast(NearestBed.Position + Vector3.new(0, 30, 0), Vector3.new(0, -35, 0), NukerRaycastParameters)
+
+			task.spawn(function()
+				if RaycastResult then
+					if RaycastResult.Instance then
+						TargetBlock = RaycastResult.Instance
+					end
+
+					if not RaycastResult.Instance then
+						TargetBlock = NearestBed
+					end
+
+					DamageBlockRemote:InvokeServer({
+						blockRef = {
+							blockPosition = GetServerPosition(TargetBlock.Position)
+						},
+
+						hitPosition = GetServerPosition(TargetBlock.Position),
+						hitNormal = GetServerPosition(TargetBlock.Position)
+					})
+				end
+			end)			
+
+			task.spawn(function()
+				local _, Value = CurrentCamera:WorldToScreenPoint(NearestBed.Position)
+
+				CanSeeNearestBed = Value
+			end)
+		end
+	end)
+end
+
+Nuke = Exploit.NewButton({
+	Name = "BedNuker",
+	Function = function(callback)
+         task.spawn(function()
+            repeat
+				task.wait(0.1)
+
+				if IsAlive(LocalPlayer) then
+					local NearestBed = FindNearestBed(35) or nil
+						if NearestBed then
+							Nuker(NearestBed)
+						end
+				end
+            until not Nuke.Enabled
+    end)
+end
+})																
 
 BlockingAnimation = Visuals.NewButton({
 	Name = "BlockingAnimation",
