@@ -1338,7 +1338,7 @@ Speed = Motion.NewButton({
 				local speed = 0.3
 
 				if SpeedMode.Option == "vanila" then
-					PrimaryPart.CFrame += (0.23)
+					PrimaryPart.CFrame += (0.3)
 					
 				end
 
