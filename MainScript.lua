@@ -897,52 +897,87 @@ end
 
 		
 
-ImageESP = Visuals.NewButton({
-	Name = "ImageESP",
-	Function = function(callback)
-		if callback then
+local ESPboxes = {}
 
-			task.spawn(function()
-				repeat
-					pcall(function()
-						for i,v in pairs(Players:GetPlayers()) do
-							if not (v.Character.PrimaryPart:FindFirstChild("nein")) then
-								if v ~= LocalPlayer and ImageESP.Enabled then
-									local e = Instance.new("BillboardGui",v.Character.PrimaryPart)
+local function isVisible(targetPos)
+    local targetScreenPos, onScreen = CurrentCamera:WorldToScreenPoint(targetPos)
+    return onScreen and targetScreenPos.Z > 0
+end
 
-									local image = Instance.new("ImageLabel",e)
-									image.Size = UDim2.fromScale(10,10)
-									image.Position = UDim2.fromScale(-3,-4)
-									image.Image = assetTable[ImageESPStyle.Option]
-									image.BackgroundTransparency = 1
+local function CreateOutline(Player)
+    local BillBoard = Instance.new("BillboardGui")
 
-									e.Size = UDim2.fromScale(0.5,0.5)
-									e.AlwaysOnTop = true
-									e.Name = "nein"
-								end
-							end
-						end
-					end)
-					task.wait()
-				until not ImageESP.Enabled
-			end)
+    BillBoard.Size = UDim2.new(4, 0, 4, 0)
+    BillBoard.AlwaysOnTop = true
+    BillBoard.Name = "Esp"
 
-		else
-			pcall(function()
-				for i,v in pairs(Players:GetPlayers()) do
-					if (v.Character.PrimaryPart:FindFirstChild("nein")) then
-						if v ~= LocalPlayer then
-							v.Character.PrimaryPart:FindFirstChild("nein"):Destroy()
-						end
-					end
-				end
-			end)
-		end
-	end,
-})
-ImageESPStyle = ImageESP.NewPicker({
-	Name = "Style",
-	Options = stylesofskybox
+    local Frame = Instance.new("Frame")
+
+    Frame.Size = UDim2.new(1, 0, 1.5, 0)
+    Frame.Position = UDim2.new(0, 0, -Player.Character.LowerTorso.Size.Y / 2 or -Player.PrimaryPart.Size.Y / 2, 0)
+    Frame.BackgroundTransparency = 1
+
+    local Stroke = Instance.new("UIStroke")
+
+    Stroke.Thickness = 2.5
+    Stroke.Color = Color3.new(1, 0.666667, 0)
+    Stroke.Transparency = 0
+
+    task.spawn(function()
+        repeat
+            task.wait(0.001)
+            Stroke.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+        until not Stroke
+    end)
+
+    local UICorner = Instance.new("UICorner")
+
+    UICorner.Parent = Frame
+    UICorner.CornerRadius = UDim.new(0, 3)
+
+    Stroke.Parent = Frame
+    Frame.Parent = BillBoard
+    BillBoard.Parent = Player.Character.PrimaryPart
+
+    ESPboxes[Player] = BillBoard
+end
+
+local function RemoveOutline(Player)
+    if ESPboxes[Player] then
+        ESPboxes[Player]:Destroy()
+        ESPboxes[Player] = nil
+    end
+end
+
+local function updateESP()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = player.Character.HumanoidRootPart.Position
+            if isVisible(targetPosition) then
+                if not ESPboxes[player] then
+                    CreateOutline(player)
+                end
+            else
+                RemoveOutline(player)
+            end
+        else
+            RemoveOutline(player)
+        end
+    end
+end
+
+ESP = Visuals.NewButton({
+    Name = "ESP",
+    Function = function(callback)
+        if callback then
+            RunService:BindToRenderStep("ESPUpdate", Enum.RenderPriority.Camera.Value + 1, updateESP)
+        else
+            RunService:UnbindFromRenderStep("ESPUpdate")
+            for _, player in pairs(game.Players:GetPlayers()) do
+                RemoveOutline(player)
+            end
+        end
+    end,
 })
 
 local infFlyPart
