@@ -1346,6 +1346,19 @@ NoSlowDown = Motion.NewButton({
 	end,
 })	
 
+BlockingAnimation = Visuals.NewButton({
+	Name = "BlockingAnimation",
+	Function = function(callback)
+		if callback then
+			LocalPlayer:GetMouse().Button2Down:Connect(function()
+				viewmodel.C0 = oldweld * CFrame.new(0.7, -0.4, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-50))
+			end)
+			LocalPlayer:GetMouse().Button2Up:Connect(function()
+				viewmodel.C0 = oldweld
+			end)
+		end
+	end,
+})
 																
 
 Phase = Player.NewButton({
